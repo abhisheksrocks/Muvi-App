@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import '../common/api_credentials(rename-this).dart';
+import '../common/api_credentials.dart';
 import '../models/genre_bucket.dart';
 
 class GenreRepository {
