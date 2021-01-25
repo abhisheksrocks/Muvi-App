@@ -1,6 +1,6 @@
 # MUVI app
 
-Muvi app is an app in play store, that aims to provide information about all the movies, released or unreleased based on the TMDb database.
+Muvi app is an app in play store, that aims to provide information about all the movies, released or unreleased based on the TMDb database. This repository holds the code base for that app.
 
 ## Getting Started
 
