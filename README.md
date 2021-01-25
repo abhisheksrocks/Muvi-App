@@ -16,11 +16,13 @@ samples, guidance on mobile development, and a full API reference.
 
 ## For the Developers
 
-First thing we need to edit is the "/lib/common/api_credentials.dart" file. This is the file where we store the API key for TMDb. To get your own API key:-
+First thing we need to rename is the "/lib/common/api_credentials(rename-this).dart" file to "/lib/common/api_credentials.dart". This is the file where we store the API key for TMDb. 
+Then, to get your own API key:-
+
 1.  Create a free account at [TMDb official website](https://www.themoviedb.org/signup)
 2.  Check your e-mail to verify your account.
 3.  Visit the API Settings page in your Account Settings and request an API key
 4.  You should now have an API key and be ready to go!
 
-Just get a copy of this repository, paste your API key in the place of "YOUR_API_HERE" in "/lib/common/api_credentials.dart" file, and run the app. And voila! That's all there is to it. Customize it all to your liking.
+Just get a copy of this repository, paste your API key in the place of "YOUR_API_HERE" in the new "/lib/common/api_credentials.dart" file, and run the app. And voila! That's all there is to it. Customize it all to your liking.
 

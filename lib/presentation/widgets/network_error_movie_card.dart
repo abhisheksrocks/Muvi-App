@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class NetworkErrorMovieCard extends StatelessWidget {
@@ -22,10 +23,26 @@ class NetworkErrorMovieCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           color: Colors.grey.withOpacity(0.1),
         ),
-        child: Center(
-          child: Icon(
-            Icons.warning,
-            color: Colors.grey.withOpacity(0.1),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.warning,
+                color: Colors.white.withOpacity(0.05),
+              ),
+              AutoSizeText(
+                'Network Error',
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: Colors.white.withOpacity(0.05)),
+                maxLines: 1,
+              )
+            ],
           ),
         ),
       ),

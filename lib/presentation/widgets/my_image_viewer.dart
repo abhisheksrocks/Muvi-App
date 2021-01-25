@@ -1,3 +1,5 @@
+import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
+import 'package:Muvi/presentation/widgets/no_image_movie_card.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -112,23 +114,16 @@ class MyAnimatedSwitcher extends StatelessWidget {
     if (state is ImageManagerFailed) {
       if (state.isImagepathEmpty) {
         return Container(
-          key: ValueKey(1),
           width: widgetWidth,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey[700],
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(14),
-            color: Colors.grey[800],
-          ),
-          child: Center(
-            child: Icon(Icons.warning),
-          ),
+          key: ValueKey(1),
+          child: NoImageMovieCard(),
         );
       } else {
-        return NetworkErrorMovieCard(
-          key: ValueKey(1),
+        return Container(
+          width: widgetWidth,
+          child: NetworkErrorMovieCard(
+            key: ValueKey(1),
+          ),
         );
         // return Container(
         //   height: double.infinity,
