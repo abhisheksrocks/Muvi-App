@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatefulWidget {
   final AnimationController animationController;
@@ -72,7 +73,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                const url = 'https://www.linkedin.com/in/abhishek-97099b125/';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
               child: ListTile(
                 title: Text(
                   'Visit the developer',

@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // 🌎 Project imports:
 import '../widgets/button_with_text_icon.dart';
 import '../widgets/icon_maker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
@@ -103,7 +104,14 @@ class AboutScreen extends StatelessWidget {
                       'Github Repository',
                       style: Theme.of(context).textTheme.button,
                     ),
-                    onPressed: () {}, //TODO: Url Launch to Github
+                    onPressed: () async {
+                      const url = 'https://github.com/abhisheksrocks/Muvi-App';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
                     color: Color(0xFF2EA44F),
                   )
                 ],
@@ -165,7 +173,15 @@ class AboutScreen extends StatelessWidget {
                       'LinkedIn Profile',
                       style: Theme.of(context).textTheme.button,
                     ),
-                    onPressed: () {}, //TODO: Url Launch to LinkedIN
+                    onPressed: () async {
+                      const url =
+                          'https://www.linkedin.com/in/abhishek-97099b125/';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
                     color: Color(0xFF0E76A8),
                   )
                 ],
