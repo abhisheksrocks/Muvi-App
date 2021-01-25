@@ -195,36 +195,6 @@ class MyAnimatedSwitcher extends StatelessWidget {
         errorWidget: (context, url, error) {
           cubit.emitNetworkFailState();
           return NetworkErrorMovieCard();
-          return Container(
-            width: widgetWidth,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey[700],
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(14),
-              color: Colors.grey[800],
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.error,
-                    color: Colors.white38,
-                  ),
-                  AutoSizeText(
-                    'Network Error',
-                    style: Theme.of(context).textTheme.caption,
-                    maxLines: 1,
-                  )
-                ],
-              ),
-            ),
-          );
         },
       );
     }
