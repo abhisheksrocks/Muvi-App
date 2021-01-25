@@ -42,3 +42,4 @@ app.*.map.json
 
 #personal
 /lib/common/api_credentials.dart
+/lib/common/api_credentials_backup.dart

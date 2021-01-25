@@ -32,6 +32,8 @@ def keystoreProperties = new Properties()
    }
 
 android {
+    ndkVersion "22.0.7026061"
+
     compileSdkVersion 29
 
     sourceSets {
@@ -59,11 +61,24 @@ android {
            storePassword keystoreProperties['storePassword']
        }
    }
+
+    
+
    buildTypes {
        release {
            signingConfig signingConfigs.release
+
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
        }
    }
+
+   externalNativeBuild {
+        cmake {
+            version "3.10.2"
+        }
+    }
 }
 
 flutter {
@@ -73,3 +88,5 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+android.buildTypes.release.ndk.debugSymbolLevel = "FULL"
