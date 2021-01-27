@@ -70,7 +70,6 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
     );
 
     _genreFetcherCubitSubscription = genreFetcherCubit.listen((state) {
-      // print('GenreFetcherState: $state');
       if (state is GenreFetcherLoaded) {
         loadResults();
         _genreFetcherCubitSubscription
@@ -81,38 +80,11 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
         emit(MoviesNowShowingFailed());
       }
     });
-    // beginLoading();
-    // loadResults();
   }
-
-  // List<int> addListAndReturn(List<int> inputList) {
-  //   listOfAllMoviesId = listOfAllMoviesId + inputList;
-  //   return listOfAllMoviesId.toSet().toList();
-  // }
 
   void updateList(List<int> inputList) {
     listOfAllMoviesId = listOfAllMoviesId + inputList;
   }
-
-  // Future<void> beginLoading({bool isForced = false}) async {
-  //   if (!isLoading || isForced) {
-  //     beginLoadingHandler?.cancel();
-  //     beginLoadingHandler = CancelableOperation.fromFuture(
-  //       loadResults(),
-  //       onCancel: () => print("beginLoadingFunction Cancelled"),
-  //     );
-  //   }
-  // }
-
-  // Future<void> loadResults({bool isForced = false}) async {
-  //   if ((!isLoading && !isAllResultsLoaded) || isForced) {
-  //     loadMoreResultsHandler?.cancel();
-  //     loadMoreResultsHandler = CancelableOperation.fromFuture(
-  //       _loadResultsFunction(),
-  //       onCancel: () => print("loadMoreResultsFunction Cancelled"),
-  //     );
-  //   }
-  // }
 
   Future<void> loadResults({bool isForced = false}) async {
     if ((!isLoading && !isAllResultsLoaded) || isForced) {

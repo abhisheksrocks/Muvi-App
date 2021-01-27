@@ -25,63 +25,23 @@ class HomeScreen extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            // backgroundColor: Colors.white10,
             centerTitle: true,
             title: SvgPicture.asset(
               'assets/images/logo.svg',
               height: 38,
             ),
-            // flexibleSpace: Container(
-            //   decoration: BoxDecoration(
-            //     gradient: LinearGradient(
-            //       begin: Alignment.topCenter,
-            //       end: Alignment.bottomCenter,
-            //       colors: <Color>[
-            //         Colors.grey.withOpacity(0.5),
-            //         Colors.black,
-            //       ],
-            //     ),
-            //   ),
-            // ),
             leading: Builder(
-              // builder: (context) => IconMaker(
-              //   icon: Icon(
-              //     Icons.menu,
-              //     size: 24,
-              //     // color: Theme.of(context).accentColor,
-              //   ),
-              //   functionToPerform: () {
-              //     // Scaffold.of(context).openDrawer();
-              //     context.read<AnimatedDrawerCubit>().changeCollapse();
-              //   },
-              // ),
               builder: (context) => IconButton(
                 icon: Icon(
                   Icons.menu,
                   size: 24,
                 ),
                 onPressed: () {
-                  // print("Clicked");
                   context.read<AnimatedDrawerCubit>().changeCollapse();
                 },
               ),
             ),
             actions: [
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 9.0),
-              //   child: IconMaker(
-              //     icon: Icon(
-              //       Icons.search,
-              //       size: 24,
-              //     ),
-              //     functionToPerform: () {
-              //       showSearch(
-              //         context: context,
-              //         delegate: SearchBar(),
-              //       );
-              //     },
-              //   ),
-              // ),
               IconButton(
                 icon: Icon(
                   Icons.search,
@@ -108,9 +68,6 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SectionHeading(text: 'Now Showing'),
-                      // BlocBuilder<MoviesNowShowingCubit, MoviesNowShowingState>(
-                      // builder: (context, state) {
-                      // if (state is MoviesNowShowingLoaded) {
                       Builder(
                         builder: (context) {
                           if (context
@@ -127,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                               },
                             );
                           }
-                          // }
+
                           return ViewAllButton(
                             functionToExecute: null,
                           );
@@ -140,6 +97,8 @@ class HomeScreen extends StatelessWidget {
                   create: (context) => CarouselPageControllerCubit(),
                   child: Builder(
                     builder: (context) {
+                      print(
+                          "Screen Height: ${MediaQuery.of(context).size.height}");
                       var cubit = context.watch<MoviesNowShowingCubit>();
                       return CardListMoviesCarousel(
                         totalHeight: 350,
@@ -176,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                               },
                             );
                           }
-                          // }
+
                           return ViewAllButton(
                             functionToExecute: null,
                           );
@@ -185,21 +144,10 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                // BlocBuilder<MoviesPopularCubit, MoviesPopularState>(
                 Builder(
                   builder: (context) {
                     var cubit = context.watch<MoviesPopularCubit>();
-                    // if (cubit.listOfAllMoviesId.isEmpty) {
-                    //   if (cubit.state is MoviesPopularFailed) {
-                    //     return Center(
-                    //       child: Icon(Icons.warning),
-                    //     );
-                    //   }
-                    //   // else
-                    //   // if (cubit.state is MoviesPopularLoading) {
-                    //   //   return CircularProgressIndicator();
-                    //   // }
-                    // }
+
                     return CardListMoviesGeneral(
                       parentCubit: cubit,
                     );
@@ -232,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                               },
                             );
                           }
-                          // }
+
                           return ViewAllButton(
                             functionToExecute: null,
                           );
@@ -244,31 +192,12 @@ class HomeScreen extends StatelessWidget {
                 Builder(
                   builder: (context) {
                     var cubit = context.watch<MoviesUpcomingCubit>();
-                    // if (cubit.listOfAllMoviesId.isEmpty) {
-                    //   if (cubit.state is MoviesUpcomingFailed) {
-                    //     return Center(
-                    //       child: Icon(Icons.warning),
-                    //     );
-                    //   }
-                    //   // else
-                    //   // if (cubit.state is MoviesUpcomingLoading) {
-                    //   //   return CircularProgressIndicator();
-                    //   // }
-                    // }
+
                     return CardListMoviesGeneral(
                       parentCubit: cubit,
                     );
                   },
                 ),
-                // Container(
-                //   padding: EdgeInsets.symmetric(
-                //     vertical: 20,
-                //   ),
-                //   child: Text(
-                //     'END OF PAGE',
-                //     style: Theme.of(context).textTheme.bodyText1,
-                //   ),
-                // ),
                 Row(
                   children: [
                     Expanded(child: Divider()),

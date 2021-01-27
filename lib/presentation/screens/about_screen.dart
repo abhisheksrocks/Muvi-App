@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import '../widgets/button_with_text_icon.dart';
 import '../widgets/icon_maker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   @override

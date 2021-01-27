@@ -1,5 +1,4 @@
-import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
-import 'package:Muvi/presentation/widgets/no_image_movie_card.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -8,6 +7,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
+import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
+import 'package:Muvi/presentation/widgets/no_image_movie_card.dart';
 import '../../cubit/image_manager_cubit.dart';
 import 'network_error_movie_card.dart';
 
@@ -125,38 +126,6 @@ class MyAnimatedSwitcher extends StatelessWidget {
             key: ValueKey(1),
           ),
         );
-        // return Container(
-        //   height: double.infinity,
-        //   width: double.infinity,
-        //   key: ValueKey(2),
-        //   decoration: BoxDecoration(
-        //     border: Border.all(
-        //       color: Colors.grey[700],
-        //       width: 2,
-        //     ),
-        //     borderRadius: BorderRadius.circular(14),
-        //     color: Colors.grey[800],
-        //   ),
-        //   child: Padding(
-        //     padding: EdgeInsets.symmetric(horizontal: 10),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Icon(
-        //           Icons.error,
-        //           color: Colors.white38,
-        //         ),
-        //         AutoSizeText(
-        //           'Network Error',
-        //           style: Theme.of(context).textTheme.caption,
-        //           maxLines: 1,
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // );
       }
     }
     return Container(

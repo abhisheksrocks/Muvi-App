@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:Muvi/presentation/widgets/icon_maker.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:Muvi/presentation/widgets/icon_maker.dart';
 
 class PageNotFound extends StatelessWidget {
   @override

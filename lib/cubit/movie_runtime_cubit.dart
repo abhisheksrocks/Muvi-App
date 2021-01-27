@@ -49,13 +49,10 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
       },
     );
 
-    // startFetching();
-
     getRuntimeInfo();
   }
 
   void research() {
-    // startFetching();
     getRuntimeInfo();
   }
 
@@ -98,30 +95,6 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
       );
     }
   }
-
-  // void startFetching() async {
-  //   emit(MovieRuntimeLoading());
-  //   try {
-  //     List<String> _listOfCasts = MovieBucket().getInfo(movieId).casts;
-  //     if (_listOfCasts == null || _listOfCasts.isEmpty) {
-  //       // print("Cast details not present");
-  //       emit(
-  //         MovieRuntimeLoaded(
-  //           listOfCasts: await MovieRepository().getCastInfo(movieId: movieId),
-  //         ),
-  //       );
-  //     } else {
-  //       // print("Cast details is present");
-  //       emit(
-  //         MovieRuntimeLoaded(
-  //           listOfCasts: _listOfCasts,
-  //         ),
-  //       );
-  //     }
-  //   } catch (_) {
-  //     emit(MovieRuntimeFailed());
-  //   }
-  // }
 
   Future<void> emitLoadingState() async {
     emit(MovieRuntimeLoading());

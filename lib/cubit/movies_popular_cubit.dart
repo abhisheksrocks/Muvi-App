@@ -88,26 +88,6 @@ class MoviesPopularCubit extends Cubit<MoviesPopularState> {
     listOfAllMoviesId = listOfAllMoviesId + inputList;
   }
 
-  // Future<void> beginLoading({bool isForced = false}) async {
-  //   if (!isLoading || isForced) {
-  //     beginLoadingHandler?.cancel();
-  //     beginLoadingHandler = CancelableOperation.fromFuture(
-  //       _loadResultsFunction(),
-  //       onCancel: () => print("beginLoadingFunction Cancelled"),
-  //     );
-  //   }
-  // }
-
-  // Future<void> loadResults({bool isForced = false}) async {
-  //   if ((!isLoading && !isAllResultsLoaded) || isForced) {
-  //     loadMoreResultsHandler?.cancel();
-  //     loadMoreResultsHandler = CancelableOperation.fromFuture(
-  //       _loadResultsFunction(),
-  //       onCancel: () => print("loadMoreResultsFunction Cancelled"),
-  //     );
-  //   }
-  // }
-
   Future<void> loadResults({bool isForced = false}) async {
     if ((!isLoading && !isAllResultsLoaded) || isForced) {
       emitLoadingState();

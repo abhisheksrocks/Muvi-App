@@ -50,13 +50,10 @@ class MovieCastFetcherCubit extends Cubit<MovieCastFetcherState> {
       },
     );
 
-    // startFetching();
-
     getCastInfo();
   }
 
   void research() {
-    // startFetching();
     getCastInfo();
   }
 
@@ -69,7 +66,7 @@ class MovieCastFetcherCubit extends Cubit<MovieCastFetcherState> {
       gettingCastInfoHandler = CancelableOperation.fromFuture(
         MovieRepository().getCastInfo(movieId: movieId),
         onCancel: () {
-          print('gettingCastInfoHandler cancelled');
+          // print('gettingCastInfoHandler cancelled');
         },
       );
 
@@ -86,30 +83,6 @@ class MovieCastFetcherCubit extends Cubit<MovieCastFetcherState> {
           listOfCasts: _listOfCasts,
         ),
       );
-    }
-  }
-
-  void startFetching() async {
-    emit(MovieCastFetcherLoading());
-    try {
-      List<String> _listOfCasts = MovieBucket().getInfo(movieId).casts;
-      if (_listOfCasts == null || _listOfCasts.isEmpty) {
-        // print("Cast details not present");
-        emit(
-          MovieCastFetcherLoaded(
-            listOfCasts: await MovieRepository().getCastInfo(movieId: movieId),
-          ),
-        );
-      } else {
-        // print("Cast details is present");
-        emit(
-          MovieCastFetcherLoaded(
-            listOfCasts: _listOfCasts,
-          ),
-        );
-      }
-    } catch (_) {
-      emit(MovieCastFetcherFailed());
     }
   }
 

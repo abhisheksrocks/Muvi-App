@@ -44,7 +44,6 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
               (_dataConnectionStatus) {
                 if (_dataConnectionStatus == DataConnectionStatus.connected) {
                   // print("Starting MoviesUpcomingCubit Loading");
-                  // startFetching();
                   getVideosInfo();
                   _dataSubscription.cancel();
                 }
@@ -55,7 +54,6 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
       },
     );
 
-    // startFetching();
     getVideosInfo();
   }
 
@@ -85,23 +83,6 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
           listOfVideos: _listOfVideos,
         ),
       );
-    }
-  }
-
-  void startFetching() async {
-    emit(MovieVideosFetcherLoading());
-    try {
-      List<String> _listOfVideos = MovieBucket().getInfo(movieId).videos;
-      if (_listOfVideos == null || _listOfVideos.isEmpty) {
-        // print("Video details not present");
-        emit(MovieVideosFetcherLoaded(
-            listOfVideos: await MovieRepository().getVideos(movieId: movieId)));
-      } else {
-        // print("Video details is present");
-        emit(MovieVideosFetcherLoaded(listOfVideos: _listOfVideos));
-      }
-    } catch (_) {
-      emit(MovieVideosFetcherFailed());
     }
   }
 

@@ -31,11 +31,9 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
     ..checkInterval = Duration(seconds: 1);
   StreamSubscription _dataSubscription;
 
-  // CancelableCompleter searchForMovieHandler;
   CancelableOperation searchDelayHandler;
   CancelableOperation searchForMovieHandler;
   CancelableOperation loadingStateHandler; //required just for this
-  // CancelableOperation loadMoreResultsHandler;
 
   MoviesSearchCubit() : super(MoviesSearchEmptyQuery()) {
     // print("MovieSearchCubit stated with state: $state");
@@ -170,157 +168,16 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
         // listOfAllMoviesId = [];
         _pageNumber = 1;
       }
-    } else {
-      // print("Couldn't enter");
     }
+    // else {
+    // print("Couldn't enter");
+    // }
   }
 
   Future<void> emitLoadingState() async {
     emit(MoviesSearchLoading());
     await Future.delayed(Duration(seconds: timeoutSeconds));
   }
-
-  // Future<void> searchForMovieFunction({
-  //   int pageNumber = 1,
-  //   @required String searchQuery,
-  // }) async {
-  //   _isLoading = true;
-  //   emit(MoviesSearchLoading());
-  //   print("pageNumber: $pageNumber");
-  //   try {
-  //     List<int> _listToReturn = await MovieRepository().searchMovie(
-  //       searchQuery: searchQuery,
-  //       page: pageNumber,
-  //     );
-  //     if (_listToReturn.isNotEmpty) {
-  //       updateList(_listToReturn);
-  //       _pageNumber++;
-  //       emit(MoviesSearchLoaded());
-  //     } else {
-  //       emit(MoviesSearchLoaded(isAllLoaded: true));
-  //     }
-  //     // return _listToReturn;
-  //   } catch (_) {
-  //     emit(MoviesSearchFailed());
-  //   } finally {
-  //     _isLoading = false;
-  //   }
-  // }
-
-  // void searchForMovie({
-  //   @required String searchQuery,
-  //   bool isForced = false,
-  //   bool fromDrag = false,
-  // }) {
-  //   print("SearchQuery: $searchQuery");
-  //   print("From Drag: $fromDrag");
-  //   // if () {
-  //   if ((searchQuery != lastQuery || fromDrag) && !_isLoading) {
-  //     print(
-  //         "searchQuery != lastQuery, with searchQuery: $searchQuery and lastQuery: $lastQuery => ${searchQuery != lastQuery}");
-  //     print("!_isLoading : ${!_isLoading}");
-  //     print("searchQuery.isNotEmpty : ${searchQuery.isNotEmpty}");
-
-  //     // searchForMovieHandler?.cancel();
-  //     // searchForMovieHandler?.operation?.cancel();
-  //     // searchForMovieHandler = CancelableOperation.fromFuture(
-  //     //   searchForMovieFunction(
-  //     //     searchQuery: searchQuery,
-  //     //     isForced: isForced,
-  //     //     fromDrag: fromDrag,
-  //     //   ),
-  //     //   onCancel: () => print('searchForMovieFunction Cancelled'),
-  //     // );
-  //     // searchForMovieHandler = CancelableCompleter(
-  //     //   onCancel: () => print('searchForMovieFunction Cancelled'),
-  //     // );
-  //     // searchForMovieHandler.complete(
-  //     //   searchForMovieFunction(
-  //     //     searchQuery: searchQuery,
-  //     //     isForced: isForced,
-  //     //     fromDrag: fromDrag,
-  //     //   ),
-  //     // );
-  //   }
-  //   // }
-  // }
-
-  // Future<void> loadMoreResult({bool isForced}) async {
-  //   if (_lastQuery.isNotEmpty && state is MoviesSearchLoaded && !_isLoading) {
-  //     emit(MoviesSearchLoading());
-  //     try {
-  //       List<int> _listOfMoviesId =
-  //           await MovieRepository().searchMovie(searchQuery: _lastQuery);
-  //     } catch (_) {
-  //       emit(MoviesSearchFailed());
-  //     }
-  //   }
-  // }
-
-  // Future<void> _loadResultsFunction() async {
-  //   isLoading = true;
-  //   emit(MoviesUpcomingLoading());
-  //   try {
-  //     List<int> _listOfMovieIds = await MovieRepository().getMoviesFromServer(
-  //       queryType: GetMovies.upcoming,
-  //       pageNumber: pageNumber.toString(),
-  //     );
-  //     if (_listOfMovieIds.isEmpty) {
-  //       emit(MoviesUpcomingLoaded(isAllLoaded: true));
-  //       isAllResultsLoaded = true;
-  //       _connectivitySubscription?.cancel();
-  //     } else {
-  //       updateList(_listOfMovieIds);
-  //       emit(MoviesUpcomingLoaded());
-  //       pageNumber++;
-  //     }
-  //   } catch (_) {
-  //     emit(MoviesUpcomingFailed());
-  //   }
-  //   isLoading = false;
-  // }
-
-  // Future<void> searchForMovieFunction({
-  //   @required String searchQuery,
-  //   @required bool isForced,
-  //   @required bool fromDrag,
-  // }) async {
-  //   if (searchQuery.isNotEmpty) {
-  //     _isLoading = true;
-  //     if (!fromDrag) {
-  //       await Future.delayed(Duration(seconds: 2));
-  //       pageNumber = 1;
-  //       listOfAllMoviesId = [];
-  //     }
-  //     emit(MoviesSearchLoading());
-  //     try {
-  //       List<int> _listOfMoviesId = await MovieRepository().searchMovie(
-  //         searchQuery: searchQuery,
-  //         page: pageNumber,
-  //       );
-  //       updateList(_listOfMoviesId);
-  //       if (_listOfMoviesId.isEmpty) {
-  //         isAllResultsLoaded = true;
-  //         emit(MoviesSearchLoaded(isAllLoaded: true));
-  //       } else {
-  //         emit(MoviesSearchLoaded());
-  //         pageNumber++;
-  //       }
-  //       print("Finishing");
-  //     } catch (error) {
-  //       print("error occured");
-  //       print(error);
-  //       emit(MoviesSearchFailed());
-  //     } finally {
-  //       _isLoading = false;
-  //       lastQuery = searchQuery;
-  //       print("updating lastQuery: $lastQuery");
-  //     }
-  //   } else {
-  //     lastQuery = '';
-  //     emit(MoviesSearchEmptyQuery());
-  //   }
-  // }
 
   @override
   Future<void> close() {

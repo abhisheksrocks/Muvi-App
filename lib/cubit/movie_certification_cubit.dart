@@ -50,13 +50,10 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
       },
     );
 
-    // startFetching();
-
     getCertificationInfo();
   }
 
   void research() {
-    // startFetching();
     getCertificationInfo();
   }
 
@@ -88,30 +85,6 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
       );
     }
   }
-
-  // void startFetching() async {
-  //   emit(MovieCertificationLoading());
-  //   try {
-  //     List<String> _listOfCasts = MovieBucket().getInfo(movieId).casts;
-  //     if (_listOfCasts == null || _listOfCasts.isEmpty) {
-  //       // print("Cast details not present");
-  //       emit(
-  //         MovieCertificationLoaded(
-  //           listOfCasts: await MovieRepository().getCastInfo(movieId: movieId),
-  //         ),
-  //       );
-  //     } else {
-  //       // print("Cast details is present");
-  //       emit(
-  //         MovieCertificationLoaded(
-  //           listOfCasts: _listOfCasts,
-  //         ),
-  //       );
-  //     }
-  //   } catch (_) {
-  //     emit(MovieCertificationFailed());
-  //   }
-  // }
 
   Future<void> emitLoadingState() async {
     emit(MovieCertificationLoading());

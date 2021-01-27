@@ -24,16 +24,22 @@ class GenreText extends StatelessWidget {
               String _genreMaker =
                   '${_genresBucket.getGenre(id: genreIds.elementAt(index++))}';
               for (; index < genreIds.length; index++) {
-                _genreMaker =
-                    "$_genreMaker, ${_genresBucket.getGenre(id: genreIds.elementAt(index))}";
+                if (_genreMaker.trim() != '') {
+                  _genreMaker =
+                      "$_genreMaker, ${_genresBucket.getGenre(id: genreIds.elementAt(index))}";
+                }
               }
-              return Text(
-                // "Action, Crime, Drama ",
-                "$_genreMaker",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: textStyle,
-              );
+              if (_genreMaker.trim() != '') {
+                return Text(
+                  // "Action, Crime, Drama ",
+                  "$_genreMaker",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textStyle,
+                );
+              } else {
+                return SizedBox();
+              }
             },
           )
         : SizedBox();

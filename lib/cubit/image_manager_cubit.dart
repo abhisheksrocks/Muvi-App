@@ -25,24 +25,10 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
   DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
   StreamSubscription _dataSubscription;
-  // final PosterSizes preferredPlaceholderSize;
-  // final PosterSizes preferredImageSize;
   ImageManagerCubit({
     @required this.posterImagePath,
     this.placeholderWidth = 100,
-    // this.preferredImageSize,
-    // this.preferredPlaceholderSize,
   }) : super(ImageManagerLoading()) {
-    // if (preferredPlaceholderSize != null) {
-    //   _placeholderUrl =
-    //       "https://image.tmdb.org/t/p/${EnumToString.convertToString(preferredPlaceholderSize)}$posterImagePath";
-    // }
-    // if (preferredImageSize != null) {
-    //   _imageUrl =
-    //       "https://image.tmdb.org/t/p/${EnumToString.convertToString(preferredImageSize)}$posterImagePath";
-    // }
-    // emit(ImageManagerLoading());
-
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen((_connectivityResult) {
       // print("ConnectivityResult @ GenreFetcherCubit: $_connectivityResult");
@@ -66,7 +52,6 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
       }
     });
 
-    // print("Managing for $posterImagePath");
     if (posterImagePath == null || posterImagePath?.trim() == '') {
       emit(ImageManagerFailed(
         isImagepathEmpty: true,
@@ -76,11 +61,9 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
       if (a != null) {
         if (findWidthForImage(a) >= placeholderWidth) {
           imageUrl = a;
-          // print("Already found");
           emit(ImageManagerLoaded());
         } else {
           placeholderUrl = a;
-          // print("Just placeholder found");
           emit(ImageManagerLoading());
           findAndGetImage();
         }
@@ -108,8 +91,6 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
 
   ImageBucket _imageBucket = ImageBucket();
 
-  // List<String> _urlToShow = [];
-
   CacheManager _cacheManager = DefaultCacheManager();
 
   bool operator >=(double width) {
@@ -135,8 +116,7 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
           );
         } else {
           placeholderUrl ??= _fileInfo.originalUrl;
-          // print("found placeholderUrl: $placeholderUrl");
-          // _urlToShow.add(_fileInfo.originalUrl);
+          // print("found placeholderUrl: $placeholderUrl");\
           emit(ImageManagerLoading());
         }
         break;
@@ -144,16 +124,6 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
     }
 
     if (imageUrl == null) {
-      // print("Couldn't find cache for $posterImagePath");
-      // print("Finding required result then");
-      // if (_urlToShow.isEmpty) {
-      //   findAdequateImage();
-      //   emit(ImageManagerLoaded());
-      // } else {
-      //   _placeholderUrl ??= _urlToShow.last;
-      //   findAdequateImage();
-      //   emit(ImageManagerLoaded());
-      // }
       findAdequateImage();
       emit(ImageManagerLoaded());
     }

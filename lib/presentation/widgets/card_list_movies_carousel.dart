@@ -41,12 +41,6 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
 
   @override
   void initState() {
-    // _controller = PageController(
-    //   initialPage:
-    //       context.read<CarouselPageControllerCubit>().state.currentPage.toInt(),
-    //   viewportFraction: 1 / 2,
-    // );
-
     super.initState();
   }
 
@@ -55,19 +49,6 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
     _controller.dispose();
     super.dispose();
   }
-
-  // double findCorrect( //I figured width is only fine everytime
-  //   double width,
-  //   double height,
-  // ) {
-  //   // double maximum = max(width, height);
-  //   // double minimum = min(width, height);
-  //   if (height / width >= 2) {
-  //     return width;
-  //   } else {
-  //     return height;
-  //   }
-  // }
 
   @override
   void didChangeDependencies() {
@@ -92,6 +73,45 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
     super.didChangeDependencies();
   }
 
+  PageView buildPageViewBuilder({
+    @required Widget widgetToShow,
+  }) {
+    return PageView.builder(
+      controller: _controller,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return BlocBuilder<CarouselPageControllerCubit,
+            CarouselPageControllerState>(
+          builder: (context, state) {
+            double difference = index - state.currentPage;
+            return Transform(
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..setEntry(
+                    3,
+                    0,
+                    -0.004 *
+                        (difference > 0.5
+                            ? 0.5
+                            : difference < -0.5
+                                ? -0.5
+                                : difference))
+                ..setEntry(
+                    3,
+                    3,
+                    1 /
+                        ((0.4 * cos(difference) + 0.7) < 0.8
+                            ? 0.8
+                            : (0.4 * cos(difference) + 0.7))),
+              alignment: FractionalOffset.center,
+              child: widgetToShow,
+            );
+          },
+        );
+      },
+    );
+  }
+
   Widget childSwitcher() {
     // print('rebuilt');
     // print("Current state: ${widget.parentCubit.state}");
@@ -101,6 +121,7 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
           widget.parentCubit.state is MoviesPopularLoading ||
           widget.parentCubit.state is MoviesSimilarFetcherLoading) {
         var state = widget.parentCubit.state;
+
         return Container(
           key: ValueKey(1),
           height: widget.totalHeight,
@@ -108,46 +129,54 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              PageView.builder(
-                controller: _controller,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return BlocBuilder<CarouselPageControllerCubit,
-                      CarouselPageControllerState>(
-                    builder: (context, state) {
-                      double difference = index - state.currentPage;
-                      return Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..setEntry(
-                              3,
-                              0,
-                              -0.004 *
-                                  (difference > 0.5
-                                      ? 0.5
-                                      : difference < -0.5
-                                          ? -0.5
-                                          : difference))
-                          ..setEntry(
-                              3,
-                              3,
-                              1 /
-                                  ((0.4 * cos(difference) + 0.7) < 0.8
-                                      ? 0.8
-                                      : (0.4 * cos(difference) + 0.7))),
-                        alignment: FractionalOffset.center,
-                        child: Center(
-                          child: LoadingShimmerPlaceholder(
-                            baseColor:
-                                Theme.of(context).accentColor.withOpacity(0.2),
-                            highlightColor: Theme.of(context).accentColor,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+              buildPageViewBuilder(
+                widgetToShow: Center(
+                  child: LoadingShimmerPlaceholder(
+                    baseColor: Theme.of(context).accentColor.withOpacity(0.2),
+                    highlightColor: Theme.of(context).accentColor,
+                  ),
+                ),
               ),
+              // PageView.builder(
+              //   controller: _controller,
+              //   physics: NeverScrollableScrollPhysics(),
+              //   itemBuilder: (context, index) {
+              //     return BlocBuilder<CarouselPageControllerCubit,
+              //         CarouselPageControllerState>(
+              //       builder: (context, state) {
+              //         double difference = index - state.currentPage;
+              //         return Transform(
+              //           transform: Matrix4.identity()
+              //             ..setEntry(3, 2, 0.001)
+              //             ..setEntry(
+              //                 3,
+              //                 0,
+              //                 -0.004 *
+              //                     (difference > 0.5
+              //                         ? 0.5
+              //                         : difference < -0.5
+              //                             ? -0.5
+              //                             : difference))
+              //             ..setEntry(
+              //                 3,
+              //                 3,
+              //                 1 /
+              //                     ((0.4 * cos(difference) + 0.7) < 0.8
+              //                         ? 0.8
+              //                         : (0.4 * cos(difference) + 0.7))),
+              //           alignment: FractionalOffset.center,
+              //           child: Center(
+              //             child: LoadingShimmerPlaceholder(
+              //               baseColor:
+              //                   Theme.of(context).accentColor.withOpacity(0.2),
+              //               highlightColor: Theme.of(context).accentColor,
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               if (state.timeoutExhausted)
                 LoadingTimeoutOverlay(
                     functionToExecute: widget.parentCubit.reloadResult),
@@ -164,42 +193,47 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
           width: double.maxFinite,
           child: Stack(
             children: [
-              PageView.builder(
-                controller: _controller,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return BlocBuilder<CarouselPageControllerCubit,
-                      CarouselPageControllerState>(
-                    builder: (context, state) {
-                      double difference = index - state.currentPage;
-                      return Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..setEntry(
-                              3,
-                              0,
-                              -0.004 *
-                                  (difference > 0.5
-                                      ? 0.5
-                                      : difference < -0.5
-                                          ? -0.5
-                                          : difference))
-                          ..setEntry(
-                              3,
-                              3,
-                              1 /
-                                  ((0.4 * cos(difference) + 0.7) < 0.8
-                                      ? 0.8
-                                      : (0.4 * cos(difference) + 0.7))),
-                        alignment: FractionalOffset.center,
-                        child: Center(
-                          child: NetworkErrorMovieCard(),
-                        ),
-                      );
-                    },
-                  );
-                },
+              buildPageViewBuilder(
+                widgetToShow: Center(
+                  child: NetworkErrorMovieCard(),
+                ),
               ),
+              // PageView.builder(
+              //   controller: _controller,
+              //   physics: NeverScrollableScrollPhysics(),
+              //   itemBuilder: (context, index) {
+              //     return BlocBuilder<CarouselPageControllerCubit,
+              //         CarouselPageControllerState>(
+              //       builder: (context, state) {
+              //         double difference = index - state.currentPage;
+              //         return Transform(
+              //           transform: Matrix4.identity()
+              //             ..setEntry(3, 2, 0.001)
+              //             ..setEntry(
+              //                 3,
+              //                 0,
+              //                 -0.004 *
+              //                     (difference > 0.5
+              //                         ? 0.5
+              //                         : difference < -0.5
+              //                             ? -0.5
+              //                             : difference))
+              //             ..setEntry(
+              //                 3,
+              //                 3,
+              //                 1 /
+              //                     ((0.4 * cos(difference) + 0.7) < 0.8
+              //                         ? 0.8
+              //                         : (0.4 * cos(difference) + 0.7))),
+              //           alignment: FractionalOffset.center,
+              //           child: Center(
+              //             child: NetworkErrorMovieCard(),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               NetworkErrorOverlay(
                 functionToExecute: widget.parentCubit.reloadResult,
               ),
@@ -213,49 +247,57 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
           width: double.maxFinite,
           child: Stack(
             children: [
-              PageView.builder(
-                controller: _controller,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return BlocBuilder<CarouselPageControllerCubit,
-                      CarouselPageControllerState>(
-                    builder: (context, state) {
-                      double difference = index - state.currentPage;
-                      return Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..setEntry(
-                              3,
-                              0,
-                              -0.004 *
-                                  (difference > 0.5
-                                      ? 0.5
-                                      : difference < -0.5
-                                          ? -0.5
-                                          : difference))
-                          // -0.004 * difference.clamp(-0.5, 0.5))
-                          ..setEntry(
-                              3,
-                              3,
-                              1 /
-                                  ((0.4 * cos(difference) + 0.7) < 0.8
-                                      ? 0.8
-                                      : (0.4 * cos(difference) + 0.7))),
-                        // 1 /
-                        //     ((0.4 * cos(difference) + 0.8)
-                        //         .clamp(0.8, 0.81))),
-                        alignment: FractionalOffset.center,
-                        child: Center(
-                          child: ShaderMask(
-                            shaderCallback: AppStyle().defaultPosterShader,
-                            child: NetworkErrorMovieCard(),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+              buildPageViewBuilder(
+                widgetToShow: Center(
+                  child: ShaderMask(
+                    shaderCallback: AppStyle().defaultPosterShader,
+                    child: NetworkErrorMovieCard(),
+                  ),
+                ),
               ),
+              // PageView.builder(
+              //   controller: _controller,
+              //   physics: NeverScrollableScrollPhysics(),
+              //   itemBuilder: (context, index) {
+              //     return BlocBuilder<CarouselPageControllerCubit,
+              //         CarouselPageControllerState>(
+              //       builder: (context, state) {
+              //         double difference = index - state.currentPage;
+              //         return Transform(
+              //           transform: Matrix4.identity()
+              //             ..setEntry(3, 2, 0.001)
+              //             ..setEntry(
+              //                 3,
+              //                 0,
+              //                 -0.004 *
+              //                     (difference > 0.5
+              //                         ? 0.5
+              //                         : difference < -0.5
+              //                             ? -0.5
+              //                             : difference))
+              //             // -0.004 * difference.clamp(-0.5, 0.5))
+              //             ..setEntry(
+              //                 3,
+              //                 3,
+              //                 1 /
+              //                     ((0.4 * cos(difference) + 0.7) < 0.8
+              //                         ? 0.8
+              //                         : (0.4 * cos(difference) + 0.7))),
+              //           // 1 /
+              //           //     ((0.4 * cos(difference) + 0.8)
+              //           //         .clamp(0.8, 0.81))),
+              //           alignment: FractionalOffset.center,
+              //           child: Center(
+              //             child: ShaderMask(
+              //               shaderCallback: AppStyle().defaultPosterShader,
+              //               child: NetworkErrorMovieCard(),
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               NoElementsOverlay(),
             ],
           ),

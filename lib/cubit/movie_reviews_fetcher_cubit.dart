@@ -40,7 +40,6 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
               (_dataConnectionStatus) {
                 if (_dataConnectionStatus == DataConnectionStatus.connected) {
                   // print("Starting MovieReviewsFetcherCubit Loading");
-                  // startFetching();
                   getReviewInfo();
                   _dataSubscription.cancel();
                 }
@@ -50,7 +49,6 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
         }
       },
     );
-    // startFetching();
     getReviewInfo();
   }
 
@@ -84,28 +82,7 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
   }
 
   void research() {
-    // startFetching();
     getReviewInfo();
-  }
-
-  void startFetching() async {
-    emit(MovieReviewsFetcherLoading());
-    try {
-      List<String> _listOfReviews = MovieBucket().getInfo(movieId).reviews;
-      if (_listOfReviews == null || _listOfReviews.isEmpty) {
-        // print("Review details not present");
-        emit(MovieReviewsFetcherLoaded(
-            listOfReviews:
-                await MovieRepository().getReviews(movieId: movieId)));
-      } else {
-        // print("Review details is present");
-        emit(MovieReviewsFetcherLoaded(listOfReviews: _listOfReviews));
-      }
-    } catch (_) {
-      // print(error);
-      // print("Review fetching failed");
-      emit(MovieReviewsFetcherFailed());
-    }
   }
 
   Future<void> emitLoadingState() async {
