@@ -18,6 +18,7 @@ class SearchBar extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
+        tooltip: 'Clear all text',
         icon: Icon(
           Icons.clear,
         ),
@@ -31,6 +32,7 @@ class SearchBar extends SearchDelegate<String> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconMaker(
+      semanticLabel: 'Back button',
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,

@@ -28,10 +28,12 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
             title: SvgPicture.asset(
               'assets/images/logo.svg',
+              semanticsLabel: 'MUVI App Logo',
               height: 38,
             ),
             leading: Builder(
               builder: (context) => IconButton(
+                tooltip: 'Open Side Drawer',
                 icon: Icon(
                   Icons.menu,
                   size: 24,
@@ -43,6 +45,7 @@ class HomeScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
+                tooltip: 'Search',
                 icon: Icon(
                   Icons.search,
                   size: 24,
@@ -195,6 +198,7 @@ class HomeScreen extends StatelessWidget {
 
                     return CardListMoviesGeneral(
                       parentCubit: cubit,
+                      isUpcomingCard: true,
                     );
                   },
                 ),

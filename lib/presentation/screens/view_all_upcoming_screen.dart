@@ -75,6 +75,7 @@ class _ViewAllUpcomingScreenState extends State<ViewAllUpcomingScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconMaker(
+            semanticLabel: 'back button',
             icon: Icon(Icons.arrow_back),
             functionToPerform: () {
               Navigator.of(context).pop();
@@ -93,6 +94,7 @@ class _ViewAllUpcomingScreenState extends State<ViewAllUpcomingScreen> {
               scrollController: _scrollController,
               cubit: cubit,
               eachCardWidth: eachCardWidth,
+              isUpcomingCard: true,
             );
           },
         ),

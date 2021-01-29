@@ -76,6 +76,7 @@ class _ViewAllNowShowingScreenState extends State<ViewAllNowShowingScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconMaker(
+            semanticLabel: 'back button',
             icon: Icon(Icons.arrow_back),
             functionToPerform: () {
               Navigator.of(context).pop();

@@ -10,6 +10,7 @@ class PageNotFound extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconMaker(
+          semanticLabel: 'back button',
           icon: Icon(
             Icons.arrow_back,
           ),
@@ -36,6 +37,7 @@ class PageNotFound extends StatelessWidget {
             height: 20,
           ),
           IconMaker(
+            semanticLabel: 'back button',
             icon: Icon(
               Icons.arrow_back,
             ),

@@ -22,17 +22,20 @@ class RatingWithText extends StatelessWidget {
         ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RatingBarIndicator(
-                itemBuilder: (context, index) => ShaderMask(
-                  shaderCallback: (bounds) =>
-                      AppStyle().defaultLinearGradient().createShader(bounds),
-                  child: Icon(
-                    Icons.star,
+              Tooltip(
+                message: "Movie score is $avgRatingOutOfTen out of 10",
+                child: RatingBarIndicator(
+                  itemBuilder: (context, index) => ShaderMask(
+                    shaderCallback: (bounds) =>
+                        AppStyle().defaultLinearGradient().createShader(bounds),
+                    child: Icon(
+                      Icons.star,
+                    ),
                   ),
+                  itemSize: 18,
+                  rating: avgRatingOutOfTen / 2,
+                  itemPadding: EdgeInsets.only(right: 8),
                 ),
-                itemSize: 18,
-                rating: avgRatingOutOfTen / 2,
-                itemPadding: EdgeInsets.only(right: 8),
               ),
               totalRatingCount != null
                   ? Text(

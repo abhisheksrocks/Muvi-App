@@ -15,6 +15,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconMaker(
+          semanticLabel: 'back button',
           icon: Icon(
             Icons.arrow_back,
           ),
@@ -37,11 +38,13 @@ class AboutScreen extends StatelessWidget {
                   SizedBox(),
                   SvgPicture.asset(
                     'assets/images/muvi_icon_white_bg.svg',
+                    semanticsLabel: 'Muvi App logo',
                     height: 110,
                   ),
                   SizedBox(),
                   SvgPicture.asset(
                     'assets/images/tmdb_full_logo.svg',
+                    semanticsLabel: 'The Movie Database logo',
                     height: 110,
                   ),
                   SizedBox(),

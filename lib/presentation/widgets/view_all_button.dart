@@ -32,6 +32,8 @@ class ViewAllButton extends StatelessWidget {
             ),
             child: Text(
               'View All',
+              semanticsLabel:
+                  '${functionToExecute == null ? 'Disabled' : ''} View all button',
               style: functionToExecute != null
                   ? Theme.of(context).textTheme.button.copyWith(
                         color: Colors.black,

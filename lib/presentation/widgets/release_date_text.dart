@@ -19,13 +19,16 @@ class ReleaseDateText extends StatelessWidget {
     return releaseDate != null
         ? Text(
             "${DateFormat('$dateFormat').format(releaseDate)}",
+            semanticsLabel:
+                'Released on ${DateFormat('$dateFormat').format(releaseDate)}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: textStyle,
           )
         : Text(
             'Unreleased',
-            style: Theme.of(context).textTheme.subtitle1,
+            semanticsLabel: "Movie hasn't released yet",
+            style: textStyle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           );

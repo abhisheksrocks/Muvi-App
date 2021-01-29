@@ -75,6 +75,7 @@ class MovieInfoScreen extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height >
@@ -85,11 +86,14 @@ class MovieInfoScreen extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       fit: StackFit.expand,
                       children: [
-                        ShaderMask(
-                          shaderCallback: AppStyle().defaultPosterShader,
-                          child: MyImageViewer(
-                            imagePath: _currentMovieModel.posterImagePath,
-                            widgetWidth: MediaQuery.of(context).size.width,
+                        Tooltip(
+                          message: 'Movie Poster',
+                          child: ShaderMask(
+                            shaderCallback: AppStyle().defaultPosterShader,
+                            child: MyImageViewer(
+                              imagePath: _currentMovieModel.posterImagePath,
+                              widgetWidth: MediaQuery.of(context).size.width,
+                            ),
                           ),
                         ),
                         Padding(
@@ -106,7 +110,11 @@ class MovieInfoScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       if (state is MovieCertificationLoaded) {
                                         return Text(
-                                          state.certificate, //TO-do
+                                          state.certificate,
+                                          semanticsLabel: state.certificate ==
+                                                  'N/A'
+                                              ? "Couldn't find a valid rating or the movie hasn't been rated yet"
+                                              : "This movie is rated - ${state.certificate}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -122,7 +130,9 @@ class MovieInfoScreen extends StatelessWidget {
                                         );
                                       } else {
                                         return Text(
-                                          "--", //TO-do
+                                          "--",
+                                          semanticsLabel:
+                                              "Couldn't find a valid rating or the movie hasn't been rated yet",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -158,6 +168,8 @@ class MovieInfoScreen extends StatelessWidget {
                                       if (state is MovieRuntimeLoaded) {
                                         return Text(
                                           "${state.minutesInString}", //TO-do
+                                          semanticsLabel:
+                                              "${state.semanticLabel}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -172,7 +184,9 @@ class MovieInfoScreen extends StatelessWidget {
                                         );
                                       } else {
                                         return Text(
-                                          "--", //TO-do
+                                          "--",
+                                          semanticsLabel:
+                                              "Couldn't fetch Movie runtime minutes",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -437,6 +451,7 @@ class MovieInfoScreen extends StatelessWidget {
               height: 120,
               width: 55,
               child: IconMaker(
+                semanticLabel: 'back button',
                 icon: Icon(Icons.arrow_back),
                 functionToPerform: () {
                   Navigator.of(context).pop();

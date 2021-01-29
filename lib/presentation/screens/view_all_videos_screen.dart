@@ -40,6 +40,7 @@ class _ViewAllVideosScreenState extends State<ViewAllVideosScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconMaker(
+          semanticLabel: 'Back Button',
           icon: Icon(Icons.arrow_back),
           functionToPerform: () {
             Navigator.of(context).pop();

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 🌎 Project imports:
+import '../../cubit/animated_drawer_cubit.dart';
 
 class DrawerWidget extends StatefulWidget {
   final AnimationController animationController;
@@ -48,10 +52,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   children: [
                     SvgPicture.asset(
                       'assets/images/logo_white.svg',
+                      semanticsLabel: 'MUVI App Logo',
                       height: 40,
                     ),
                     Text(
                       'v0.0.1',
+                      semanticsLabel: "App's current version",
                       style: Theme.of(context)
                           .textTheme
                           .headline3
@@ -62,8 +68,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ),
             ),
             InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/about');
+              onTap: () async {
+                Navigator.pushNamed(context, '/about').whenComplete(
+                    () => context.read<AnimatedDrawerCubit>().changeCollapse());
               },
               child: ListTile(
                 title: Text(
@@ -76,7 +83,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               onTap: () async {
                 const url = 'https://www.linkedin.com/in/abhishek-97099b125/';
                 if (await canLaunch(url)) {
-                  await launch(url);
+                  await launch(url).whenComplete(() =>
+                      context.read<AnimatedDrawerCubit>().changeCollapse());
                 } else {
                   throw 'Could not launch $url';
                 }

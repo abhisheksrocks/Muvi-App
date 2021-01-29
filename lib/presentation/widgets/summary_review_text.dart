@@ -35,8 +35,9 @@ class SummaryReviewText extends StatelessWidget {
             style: textStyle,
             trimLines: linesToShow,
             trimMode: TrimMode.Line,
-            trimExpandedText: 'show less',
-            trimCollapsedText: 'show more',
+            trimExpandedText: '... show less',
+            trimCollapsedText: '... show more',
+            delimiter: null,
             lessStyle: TextStyle(
               color: Theme.of(context).accentColor,
               fontStyle: FontStyle.italic,

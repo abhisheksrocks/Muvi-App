@@ -6,18 +6,20 @@ import '../../models/movie_bucket.dart';
 import 'single_list_movie_card.dart';
 
 class MovieGridViewBuilder extends StatelessWidget {
-  const MovieGridViewBuilder(
-      {Key key,
-      @required this.scrollController,
-      @required this.cubit,
-      @required this.eachCardWidth,
-      @required this.movieBucketObject})
-      : super(key: key);
+  const MovieGridViewBuilder({
+    Key key,
+    @required this.scrollController,
+    @required this.cubit,
+    @required this.eachCardWidth,
+    @required this.movieBucketObject,
+    this.isUpcomingCard = false,
+  }) : super(key: key);
 
   final ScrollController scrollController;
   final dynamic cubit;
   final double eachCardWidth;
   final MovieBucket movieBucketObject;
+  final bool isUpcomingCard;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class MovieGridViewBuilder extends StatelessWidget {
           mainAxisSpacing: 8,
         ),
         itemBuilder: (context, index) => SingleListMovieCard(
+          isUpcomingCard: isUpcomingCard,
           cardWidth: eachCardWidth,
           currentMovieModel: movieBucketObject.getInfo(
             cubit.listOfAllMoviesId.elementAt(index),

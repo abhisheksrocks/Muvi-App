@@ -113,6 +113,7 @@ class SingleListVideoCard extends StatelessWidget {
             ),
             if (videoInfo.path != '' || videoInfo.path != null)
               IconMaker(
+                semanticLabel: 'play video',
                 icon: Icon(Icons.play_arrow),
                 functionToPerform: playVideo,
                 inverted: true,

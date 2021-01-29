@@ -12,11 +12,13 @@ class ViewAllMoviesGridWithStatusWidget extends StatelessWidget {
     @required this.scrollController,
     @required this.cubit,
     @required this.eachCardWidth,
+    this.isUpcomingCard = false,
   }) : super(key: key);
 
   final ScrollController scrollController;
   final cubit;
   final double eachCardWidth;
+  final bool isUpcomingCard;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class ViewAllMoviesGridWithStatusWidget extends StatelessWidget {
           scrollController: scrollController,
           cubit: cubit,
           eachCardWidth: eachCardWidth,
+          isUpcomingCard: isUpcomingCard,
           movieBucketObject: MovieBucket(),
         ),
         PageLoadingStatus(

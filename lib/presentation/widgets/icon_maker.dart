@@ -6,9 +6,11 @@ class IconMaker extends StatelessWidget {
   final Function functionToPerform;
   final bool inverted;
   final bool alternateApproach;
+  final String semanticLabel;
   const IconMaker({
     Key key,
     @required this.icon,
+    @required this.semanticLabel,
     this.functionToPerform,
     this.inverted = false,
     this.alternateApproach = false,
@@ -18,16 +20,22 @@ class IconMaker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: alternateApproach
-          ? Container(
-              decoration: buildCommonBoxDecoration(context),
-              child: Material(
-                color: Colors.transparent,
-                child: buildCommonInkWell(context),
+          ? Tooltip(
+              message: semanticLabel,
+              child: Container(
+                decoration: buildCommonBoxDecoration(context),
+                child: Material(
+                  color: Colors.transparent,
+                  child: buildCommonInkWell(context),
+                ),
               ),
             )
-          : Ink(
-              decoration: buildCommonBoxDecoration(context),
-              child: buildCommonInkWell(context),
+          : Tooltip(
+              message: semanticLabel,
+              child: Ink(
+                decoration: buildCommonBoxDecoration(context),
+                child: buildCommonInkWell(context),
+              ),
             ),
     );
   }
@@ -35,6 +43,7 @@ class IconMaker extends StatelessWidget {
   BoxDecoration buildCommonBoxDecoration(BuildContext context) {
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(8)),
+
       color:
           inverted ? Theme.of(context).backgroundColor.withOpacity(0.3) : null,
       // : Theme.of(context).iconTheme.color.withOpacity(0.3),

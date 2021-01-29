@@ -30,6 +30,7 @@ class _ViewAllReviewsScreenState extends State<ViewAllReviewsScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconMaker(
+          semanticLabel: 'back button',
           icon: Icon(Icons.arrow_back),
           functionToPerform: () {
             Navigator.of(context).pop();

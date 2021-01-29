@@ -33,6 +33,7 @@ class GenreText extends StatelessWidget {
                 return Text(
                   // "Action, Crime, Drama ",
                   "$_genreMaker",
+                  semanticsLabel: "Genre includes $_genreMaker",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textStyle,
