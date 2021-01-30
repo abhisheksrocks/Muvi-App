@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Muvi',
         theme: AppTheme()(),
         onGenerateRoute: AppRouter(),
         debugShowCheckedModeBanner: false,
