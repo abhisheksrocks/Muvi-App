@@ -18,7 +18,8 @@ Download the app from Play Store - [Link](https://play.google.com/store/apps/det
 Original UI/UX Design - [Google Drive link(Adobe XD file)](http://bit.ly/2YqgRRk)
 
 Original app announcement post - [LinkedIn Post](https://www.linkedin.com/posts/abhishek-97099b125_flutterdeveloper-androidapp-uidesign-activity-6761417122682851328-pYNl)
-Fun fact - This post got just 4 likes the first day it was posted, of which 1 was the developer's himself.
+
+Fun fact - The LinkedIn post got just 4 likes the first day it was posted, of which 1 was the developer's himself.
 
 ## Getting Started
 
