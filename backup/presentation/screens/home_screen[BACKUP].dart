@@ -100,6 +100,7 @@ class HomeScreen extends StatelessWidget {
             // ),
             leading: Builder(
               builder: (context) => IconMaker(
+                semanticLabel: 'Open Side Drawer',
                 icon: Icon(
                   Icons.menu,
                   size: 24,
@@ -114,6 +115,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 9.0),
                 child: IconMaker(
+                  semanticLabel: 'search button',
                   icon: Icon(
                     Icons.search,
                     size: 24,

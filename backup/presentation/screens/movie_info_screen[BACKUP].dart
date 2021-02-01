@@ -74,6 +74,7 @@ class MovieInfoScreen extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               leading: IconMaker(
+                semanticLabel: 'back button',
                 icon: Icon(Icons.arrow_back),
                 functionToPerform: () {
                   Navigator.of(context).pop();

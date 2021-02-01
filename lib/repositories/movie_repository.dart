@@ -399,12 +399,18 @@ class MovieRepository {
 
         String otherMovieCertificate;
 
-        result.forEach((element) {
+        // result.forEach((element) {
+        for (int index = 0; index < result.length; index++) {
+          var element = result[index];
           String board = element["iso_3166_1"];
           final List allReleases = element["release_dates"];
-          allReleases.forEach((element) {
-            String certificate = element["certification"];
-            if (element["certification"] != "") {
+          // allReleases.forEach((element) {
+          for (int elementIndex = 0;
+              elementIndex < allReleases.length;
+              elementIndex++) {
+            var newElement = allReleases[elementIndex];
+            String certificate = newElement["certification"];
+            if (newElement["certification"] != "") {
               if (board == 'IN') {
                 indianMovieCertificate ??= certificate;
                 _moviesBucket.addInfo(
@@ -420,7 +426,7 @@ class MovieRepository {
                 }
               }
             }
-          });
+          }
           // print("Id: ${element['id']}");
           // print("Author: ${element['author']}");
           // print("Content: ${element['content']}");
@@ -436,7 +442,7 @@ class MovieRepository {
           //       : null,
           // );
           // _allReviews.add(element['id']);
-        });
+        }
 
         // print(
         //     "For movie: ${_moviesBucket.getInfo(movieId).title}, returned: $_allReviews");
