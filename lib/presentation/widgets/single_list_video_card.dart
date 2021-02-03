@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/presentation/widgets/loading_shimmer_placeholder.dart';
 import 'package:Muvi/presentation/widgets/network_error_movie_card.dart';
 import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
 import '../../models/video_bucket.dart';

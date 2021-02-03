@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Muvi',
+        title: 'Muvi - All About Movies!',
         theme: AppTheme()(),
         onGenerateRoute: AppRouter(),
         debugShowCheckedModeBanner: false,

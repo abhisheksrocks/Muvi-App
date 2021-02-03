@@ -2,12 +2,10 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
 import 'package:Muvi/presentation/widgets/no_image_movie_card.dart';
 import '../../cubit/image_manager_cubit.dart';
 import 'network_error_movie_card.dart';
