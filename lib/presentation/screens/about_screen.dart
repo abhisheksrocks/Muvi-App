@@ -23,7 +23,7 @@ class AboutScreen extends StatelessWidget {
         ),
         title: Text(
           'About',
-          style: Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+          style: Theme.of(context).textTheme.headline1?.apply(fontSizeDelta: 4),
         ),
       ),
       body: SingleChildScrollView(
@@ -64,21 +64,21 @@ class AboutScreen extends StatelessWidget {
                       text: 'This app is powered by ',
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2
+                          .bodyText2!
                           .copyWith(color: Colors.white),
                     ),
                     TextSpan(
                       text: 'The Movie Database API, ',
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1
+                          .subtitle1!
                           .copyWith(color: Colors.white),
                     ),
                     TextSpan(
                       text: 'written in Dart with Flutter framework.',
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2
+                          .bodyText2!
                           .copyWith(color: Colors.white),
                     ),
                   ],
@@ -88,7 +88,7 @@ class AboutScreen extends StatelessWidget {
                 '\nWant to completely customize this app and give it your own flavour? This app is open-sourced! Click on the link below and follow the instructions.',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyText2!
                     .copyWith(color: Colors.white),
               ),
               SizedBox(
@@ -131,14 +131,14 @@ class AboutScreen extends StatelessWidget {
                   text: '\nMade with all the ❤️ by',
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .copyWith(color: Colors.white),
                   children: [
                     TextSpan(
                       text: ' Abhishek,',
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle1
+                          .subtitle1!
                           .copyWith(color: Colors.white),
                     ),
                     TextSpan(
@@ -146,13 +146,13 @@ class AboutScreen extends StatelessWidget {
                           " a passion driven developer in Bangalore, India. This guy has been obsessed with computers his whole life, and his interest in programming is a result of that. But don't just take my word for it (what do I know, I'm just an app!😉), check out his profile below, talk to him if you like.",
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2
+                          .bodyText2!
                           .copyWith(color: Colors.white),
                     ),
                     TextSpan(
                       text:
                           '\nPsst! Do mention that I("Muvi" App) sent you there. He loves hearing my name.',
-                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: Colors.white,
                             fontStyle: FontStyle.italic,
                           ),

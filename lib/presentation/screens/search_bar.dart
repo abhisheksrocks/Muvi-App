@@ -38,7 +38,7 @@ class SearchBar extends SearchDelegate<String> {
         progress: transitionAnimation,
       ),
       functionToPerform: () {
-        close(context, null);
+        close(context, '');
       },
     );
   }
@@ -79,20 +79,20 @@ class SearchResults extends StatefulWidget {
   final MoviesSearchCubit cubit;
   final String searchQuery;
   const SearchResults({
-    Key key,
-    @required this.cubit,
-    @required this.searchQuery,
+    Key? key,
+    required this.cubit,
+    required this.searchQuery,
   }) : super(key: key);
   @override
   _SearchResultsState createState() => _SearchResultsState();
 }
 
 class _SearchResultsState extends State<SearchResults> {
-  double eachCardWidth;
-  ScrollController _scrollController;
+  late double eachCardWidth;
+  late ScrollController _scrollController;
 
-  double _maxCrossAxisExtent;
-  double _childAspectRatio;
+  late double _maxCrossAxisExtent;
+  late double _childAspectRatio;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -244,11 +244,13 @@ class _SearchResultsState extends State<SearchResults> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text('Taking Longer than usual...'),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         widget.cubit.research();
                       },
-                      color: Colors.grey.withOpacity(0.2),
+                      style: TextButton.styleFrom(
+                        primary: Colors.grey.withOpacity(0.2),
+                      ),
                       child: const Text('Retry'),
                     ),
                   ],

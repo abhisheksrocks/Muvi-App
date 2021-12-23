@@ -8,9 +8,9 @@ class TitleText extends StatelessWidget {
   final String title;
   final TextStyle textStyle;
   const TitleText({
-    Key key,
-    @required this.title,
-    @required this.textStyle,
+    Key? key,
+    required this.title,
+    required this.textStyle,
   }) : super(key: key);
 
   @override

@@ -13,7 +13,7 @@ class MovieCertificationLoading extends MovieCertificationState {
 class MovieCertificationLoaded extends MovieCertificationState {
   final String certificate;
   MovieCertificationLoaded({
-    @required this.certificate,
+    required this.certificate,
   });
 }
 

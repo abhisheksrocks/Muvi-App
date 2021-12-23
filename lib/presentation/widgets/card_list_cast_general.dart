@@ -14,14 +14,14 @@ class CardListCastGeneral extends StatelessWidget {
   final double leftEdgeInsets;
 
   const CardListCastGeneral({
-    Key key,
-    @required this.parentCubit,
+    Key? key,
+    required this.parentCubit,
     this.cardHeight = 160,
     this.leftEdgeInsets = 18,
   }) : super(key: key);
 
   Widget childSwitcher({
-    BuildContext context,
+    required BuildContext context,
   }) {
     var state = parentCubit.state;
     if (state is MovieCastFetcherLoading) {

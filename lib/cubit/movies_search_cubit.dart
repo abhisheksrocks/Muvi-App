@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -25,15 +25,15 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  CancelableOperation searchDelayHandler;
-  CancelableOperation searchForMovieHandler;
-  CancelableOperation loadingStateHandler; //required just for this
+  CancelableOperation? searchDelayHandler;
+  CancelableOperation? searchForMovieHandler;
+  CancelableOperation? loadingStateHandler; //required just for this
 
   MoviesSearchCubit() : super(MoviesSearchEmptyQuery()) {
     // print("MovieSearchCubit stated with state: $state");
@@ -45,10 +45,10 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
         if (state is MoviesSearchFailed) {
           _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
             (_dataConnectionStatus) {
-              if (_dataConnectionStatus == DataConnectionStatus.connected) {
+              if (_dataConnectionStatus == InternetConnectionStatus.connected) {
                 // print("Starting MoviesSearchCubit");
                 research();
-                _dataSubscription.cancel();
+                _dataSubscription?.cancel();
               }
             },
           );
@@ -66,7 +66,7 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
   }
 
   void searchForMovie({
-    @required String searchQuery,
+    required String searchQuery,
     bool isForced = false,
     bool fromDrag = false,
   }) {
@@ -97,7 +97,7 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
             // print('searchDelayHandler cancelled');
           },
         );
-        searchDelayHandler.value.whenComplete(() {
+        searchDelayHandler?.value.whenComplete(() {
           // fromDrag
           //     ? print("Called Immediately with searchQuery: $searchQuery")
           //     : print("Called after 2 seconds with searchQuery: $searchQuery");
@@ -117,7 +117,7 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
             emitLoadingState(),
             onCancel: () => print("Loading state resetted"),
           );
-          loadingStateHandler.value.whenComplete(() {
+          loadingStateHandler?.value.whenComplete(() {
             if (state is MoviesSearchLoading) {
               emit(MoviesSearchLoading(timeoutExhausted: true));
             }
@@ -137,7 +137,7 @@ class MoviesSearchCubit extends Cubit<MoviesSearchState> {
             },
           );
 
-          searchForMovieHandler.value.then((value) {
+          searchForMovieHandler?.value.then((value) {
             List<int> _listToReturn = value as List<int>;
             if (_listToReturn.isNotEmpty) {
               updateList(_listToReturn);

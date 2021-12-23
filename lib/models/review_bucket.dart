@@ -1,6 +1,3 @@
-// 📦 Package imports:
-import 'package:meta/meta.dart';
-
 // 🌎 Project imports:
 import 'review_model.dart';
 
@@ -8,10 +5,10 @@ class ReviewBucket {
   static List<ReviewModel> _listOfReviews = [];
 
   void addReview({
-    @required String id,
-    @required String author,
-    @required String content,
-    @required int rating,
+    required String id,
+    required String author,
+    required String content,
+    int? rating,
   }) {
     try {
       _listOfReviews.firstWhere((element) => element.id == id);
@@ -26,7 +23,7 @@ class ReviewBucket {
   }
 
   ReviewModel getReview({
-    @required String reviewId,
+    required String reviewId,
   }) {
     return _listOfReviews.firstWhere((element) => element.id == reviewId);
   }

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class IconMaker extends StatelessWidget {
   final Widget icon;
-  final Function functionToPerform;
+  final void Function()? functionToPerform;
   final bool inverted;
   final bool alternateApproach;
   final String semanticLabel;
   const IconMaker({
-    Key key,
-    @required this.icon,
-    @required this.semanticLabel,
+    Key? key,
+    required this.icon,
+    required this.semanticLabel,
     this.functionToPerform,
     this.inverted = false,
     this.alternateApproach = false,

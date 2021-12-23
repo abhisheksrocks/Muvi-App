@@ -11,7 +11,7 @@ import '../widgets/view_all_movies_grid_with_status_widget.dart';
 
 class ViewAllUpcomingScreen extends StatefulWidget {
   const ViewAllUpcomingScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -19,8 +19,8 @@ class ViewAllUpcomingScreen extends StatefulWidget {
 }
 
 class _ViewAllUpcomingScreenState extends State<ViewAllUpcomingScreen> {
-  double eachCardWidth;
-  ScrollController _scrollController;
+  late double eachCardWidth;
+  late ScrollController _scrollController;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -84,7 +84,7 @@ class _ViewAllUpcomingScreenState extends State<ViewAllUpcomingScreen> {
           title: Text(
             'Coming Soon',
             style:
-                Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+                Theme.of(context).textTheme.headline1?.apply(fontSizeDelta: 4),
           ),
         ),
         body: Builder(

@@ -9,7 +9,7 @@ class NoElementsCardListBackground extends StatelessWidget {
   final double leftEdgeInsets;
   final double aspectRatio;
   const NoElementsCardListBackground({
-    Key key,
+    Key? key,
     this.leftEdgeInsets = 8,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);

@@ -14,14 +14,14 @@ class CardListVideoGeneral extends StatelessWidget {
   final double leftEdgePadding;
 
   const CardListVideoGeneral({
-    Key key,
-    @required this.parentCubit,
+    Key? key,
+    required this.parentCubit,
     this.cardHeight = 148,
     this.leftEdgePadding = 18,
   }) : super(key: key);
 
   Widget childSwitcher({
-    @required BuildContext context,
+    required BuildContext context,
   }) {
     var state = parentCubit.state;
     // print("Video general state: $state");

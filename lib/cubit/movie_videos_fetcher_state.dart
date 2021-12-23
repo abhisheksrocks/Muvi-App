@@ -13,7 +13,7 @@ class MovieVideosFetcherLoading extends MovieVideosFetcherState {
 class MovieVideosFetcherLoaded extends MovieVideosFetcherState {
   final List<String> listOfVideos;
   MovieVideosFetcherLoaded({
-    @required this.listOfVideos,
+    required this.listOfVideos,
   });
 }
 

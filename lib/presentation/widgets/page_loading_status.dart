@@ -9,8 +9,8 @@ import '../../cubit/movies_upcoming_cubit.dart';
 
 class PageLoadingStatus extends StatelessWidget {
   const PageLoadingStatus({
-    Key key,
-    @required this.cubit,
+    Key? key,
+    required this.cubit,
   }) : super(key: key);
 
   final dynamic cubit;

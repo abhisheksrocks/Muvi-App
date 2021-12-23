@@ -10,8 +10,8 @@ class ViewAllVideosScreen extends StatefulWidget {
   final MovieVideosFetcherLoaded state;
 
   const ViewAllVideosScreen({
-    Key key,
-    @required this.state,
+    Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class ViewAllVideosScreen extends StatefulWidget {
 }
 
 class _ViewAllVideosScreenState extends State<ViewAllVideosScreen> {
-  double eachCardWidth;
+  late double eachCardWidth;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -48,7 +48,7 @@ class _ViewAllVideosScreenState extends State<ViewAllVideosScreen> {
         ),
         title: Text(
           'Videos',
-          style: Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+          style: Theme.of(context).textTheme.headline1?.apply(fontSizeDelta: 4),
         ),
       ),
       body: SingleChildScrollView(

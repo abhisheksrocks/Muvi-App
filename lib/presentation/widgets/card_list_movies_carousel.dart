@@ -28,8 +28,8 @@ class CardListMoviesCarousel extends StatefulWidget {
   final double totalHeight;
 
   const CardListMoviesCarousel({
-    Key key,
-    @required this.parentCubit,
+    Key? key,
+    required this.parentCubit,
     this.totalHeight = 350,
   }) : super(key: key);
   @override
@@ -68,13 +68,13 @@ class _CardListMoviesCarouselState extends State<CardListMoviesCarousel> {
     );
     _controller.addListener(() {
       // print("current page: ${_controller.page}");
-      context.read<CarouselPageControllerCubit>().setPage(_controller.page);
+      context.read<CarouselPageControllerCubit>().setPage(_controller.page!);
     });
     super.didChangeDependencies();
   }
 
   PageView buildPageViewBuilder({
-    @required Widget widgetToShow,
+    required Widget widgetToShow,
   }) {
     return PageView.builder(
       controller: _controller,

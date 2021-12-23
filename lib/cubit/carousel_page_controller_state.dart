@@ -5,7 +5,7 @@ class CarouselPageControllerState {
   final double currentPage;
   final double viewportFraction;
   CarouselPageControllerState({
-    @required this.currentPage,
-    @required this.viewportFraction,
+    required this.currentPage,
+    required this.viewportFraction,
   });
 }

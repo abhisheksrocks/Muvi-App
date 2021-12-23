@@ -1,6 +1,3 @@
-// 📦 Package imports:
-import 'package:meta/meta.dart';
-
 // 🌎 Project imports:
 import 'person_model.dart';
 
@@ -8,9 +5,9 @@ class PersonBucket {
   static List<PersonModel> _personList = [];
 
   PersonModel addPerson({
-    @required int id,
-    @required String name,
-    String avatarPath,
+    required int id,
+    required String name,
+    String? avatarPath,
   }) {
     try {
       PersonModel _person =
@@ -27,7 +24,7 @@ class PersonBucket {
   }
 
   PersonModel getPerson({
-    @required int id,
+    required int id,
   }) {
     return _personList.firstWhere((element) => element.id == id);
   }

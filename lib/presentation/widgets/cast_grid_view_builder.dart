@@ -7,9 +7,9 @@ import 'single_list_cast_card.dart';
 
 class CastGridViewBuilder extends StatelessWidget {
   const CastGridViewBuilder({
-    Key key,
-    @required this.state,
-    @required this.eachCardWidth,
+    Key? key,
+    required this.state,
+    required this.eachCardWidth,
   }) : super(key: key);
 
   final MovieCastFetcherLoaded state;

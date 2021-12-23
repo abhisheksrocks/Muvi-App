@@ -9,7 +9,7 @@ class LoadingShimmerPlaceholder extends StatelessWidget {
   final Color highlightColor;
   final double aspectRatio;
   const LoadingShimmerPlaceholder({
-    Key key,
+    Key? key,
     this.baseColor = Colors.white10,
     this.highlightColor = Colors.white,
     this.aspectRatio = 2 / 3,

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -19,16 +19,16 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  CancelableOperation getCertificationHandler;
+  CancelableOperation? getCertificationHandler;
 
   MovieCertificationCubit({
-    @required this.movieId,
+    required this.movieId,
   }) : super(MovieCertificationLoading()) {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
       (_connectivityResult) {
@@ -38,10 +38,11 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
           if (state is MovieCertificationFailed) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   print("Starting MovieCertificationCubit Loading");
                   getCertificationInfo();
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
@@ -59,7 +60,7 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
 
   void getCertificationInfo() {
     emitLoadingState();
-    String _certification = MovieBucket().getInfo(movieId).certification;
+    String? _certification = MovieBucket().getInfo(movieId).certification;
     if (_certification == null || _certification.isEmpty) {
       // print("Cast details not present");
       getCertificationHandler?.cancel();
@@ -70,7 +71,7 @@ class MovieCertificationCubit extends Cubit<MovieCertificationState> {
         },
       );
 
-      getCertificationHandler.value.then((value) {
+      getCertificationHandler?.value.then((value) {
         String result = value as String;
         emit(MovieCertificationLoaded(certificate: result));
       }).catchError((_) {

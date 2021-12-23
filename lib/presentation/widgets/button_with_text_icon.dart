@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import '../core/app_style.dart';
 
 class ButtonWithTextIcon extends StatelessWidget {
-  final Widget icon;
-  final Color color;
-  final Gradient gradient;
+  final Widget? icon;
+  final Color? color;
+  final Gradient? gradient;
   final Widget label;
-  final Function onPressed;
+  final void Function()? onPressed;
   const ButtonWithTextIcon({
-    Key key,
+    Key? key,
     this.icon,
     this.color,
     this.gradient,
-    @required this.label,
-    @required this.onPressed,
+    required this.label,
+    required this.onPressed,
   }) : super(key: key);
 
   BoxDecoration buildBoxDecoration() {

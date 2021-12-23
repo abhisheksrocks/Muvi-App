@@ -12,8 +12,8 @@ class ViewAllReviewsScreen extends StatefulWidget {
   final MovieReviewsFetcherLoaded state;
 
   const ViewAllReviewsScreen({
-    Key key,
-    @required this.state,
+    Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class ViewAllReviewsScreen extends StatefulWidget {
 class _ViewAllReviewsScreenState extends State<ViewAllReviewsScreen> {
   ReviewBucket _reviewBucket = ReviewBucket();
 
-  ReviewModel _reviewModel;
+  late ReviewModel _reviewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _ViewAllReviewsScreenState extends State<ViewAllReviewsScreen> {
         ),
         title: Text(
           'All Reviews',
-          style: Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+          style: Theme.of(context).textTheme.headline1?.apply(fontSizeDelta: 4),
         ),
       ),
       body: SingleChildScrollView(

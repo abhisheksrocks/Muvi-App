@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                       'v0.0.1',
                       style: Theme.of(context)
                           .textTheme
-                          .headline3
+                          .headline3!
                           .copyWith(color: Colors.black),
                     ),
                     // Text(

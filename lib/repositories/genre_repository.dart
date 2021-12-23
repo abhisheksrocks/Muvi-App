@@ -18,12 +18,20 @@ class GenreRepository {
       //     language, //TBH right now language option isn't useful at all, don't use it
       // }
       ) async {
+    // print("Came here");
     String _query =
         "https://api.themoviedb.org/3/genre/movie/list?api_key=$_apiKey";
     // if (language != null) {
     //   _query = "$_query&language=$language";
     // }
-    final http.Response _response = await http.get(_query);
+    // http.get(Uri.parse(uri))
+    Uri uri = Uri.parse(_query);
+    print("URI : $uri");
+    Uri newUri =
+        Uri.http("api.themoviedb.org", "/3/genre/movie/list?api_key=$_apiKey");
+    print("newURI : $newUri");
+    final http.Response _response = await http.get(newUri);
+    print("Response.statuscode: ${_response.statusCode}");
     switch (_response.statusCode) {
       case 200:
         final List result =

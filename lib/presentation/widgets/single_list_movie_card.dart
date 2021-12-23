@@ -11,9 +11,9 @@ import 'title_text.dart';
 
 class SingleListMovieCard extends StatelessWidget {
   const SingleListMovieCard({
-    Key key,
-    @required this.cardWidth,
-    @required MovieModel currentMovieModel,
+    Key? key,
+    required this.cardWidth,
+    required MovieModel currentMovieModel,
     this.isUpcomingCard = false,
     this.isFirst = false,
     this.leftEdgeInsets = 8,
@@ -52,7 +52,7 @@ class SingleListMovieCard extends StatelessWidget {
               child: ShaderMask(
                 shaderCallback: AppStyle().defaultPosterShader,
                 child: MyImageViewer(
-                  imagePath: _currentMovieModel.posterImagePath,
+                  imagePath: _currentMovieModel.posterImagePath!,
                   widgetWidth: cardWidth,
                 ),
               ),
@@ -64,17 +64,17 @@ class SingleListMovieCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TitleText(
-                    title: _currentMovieModel.title,
-                    textStyle: Theme.of(context).textTheme.headline3,
+                    title: _currentMovieModel.title!,
+                    textStyle: Theme.of(context).textTheme.headline3!,
                   ),
                   !isUpcomingCard
                       ? GenreText(
-                          genreIds: _currentMovieModel.genreIds,
-                          textStyle: Theme.of(context).textTheme.subtitle2,
+                          genreIds: _currentMovieModel.genreIds!,
+                          textStyle: Theme.of(context).textTheme.subtitle2!,
                         )
                       : ReleaseDateText(
-                          releaseDate: _currentMovieModel.releaseDate,
-                          textStyle: Theme.of(context).textTheme.subtitle2,
+                          releaseDate: _currentMovieModel.releaseDate!,
+                          textStyle: Theme.of(context).textTheme.subtitle2!,
                         )
                 ],
               ),

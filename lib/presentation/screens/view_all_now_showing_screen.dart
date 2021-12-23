@@ -11,7 +11,7 @@ import '../widgets/view_all_movies_grid_with_status_widget.dart';
 
 class ViewAllNowShowingScreen extends StatefulWidget {
   const ViewAllNowShowingScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class ViewAllNowShowingScreen extends StatefulWidget {
 }
 
 class _ViewAllNowShowingScreenState extends State<ViewAllNowShowingScreen> {
-  double eachCardWidth;
-  ScrollController _scrollController;
+  late double eachCardWidth;
+  late ScrollController _scrollController;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -85,7 +85,7 @@ class _ViewAllNowShowingScreenState extends State<ViewAllNowShowingScreen> {
           title: Text(
             'Now Showing',
             style:
-                Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+                Theme.of(context).textTheme.headline1!.apply(fontSizeDelta: 4),
           ),
         ),
         body: Builder(

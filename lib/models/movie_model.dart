@@ -1,24 +1,21 @@
-// 📦 Package imports:
-import 'package:meta/meta.dart';
-
 class MovieModel {
   int id;
-  String posterImagePath;
-  String title;
-  String summary;
-  DateTime releaseDate;
-  List<int> genreIds;
-  double avgRatingOutOfTen;
-  int totalRatingCount;
-  List<String> casts;
-  List<String> videos;
-  List<String> reviews;
-  List<int> similarMovies;
-  String certification;
-  int runtimeMinutes;
+  String? posterImagePath;
+  String? title;
+  String? summary;
+  DateTime? releaseDate;
+  List<int>? genreIds;
+  double? avgRatingOutOfTen;
+  int? totalRatingCount;
+  List<String>? casts;
+  List<String>? videos;
+  List<String>? reviews;
+  List<int>? similarMovies;
+  String? certification;
+  int? runtimeMinutes;
 
   MovieModel({
-    @required this.id,
+    required this.id,
     this.posterImagePath,
     this.title,
     this.summary,

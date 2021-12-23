@@ -5,8 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:meta/meta.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 // 🌎 Project imports:
 import '../models/movie_bucket.dart';
@@ -19,16 +18,16 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  CancelableOperation getRuntimeMinutesHandler;
+  CancelableOperation? getRuntimeMinutesHandler;
 
   MovieRuntimeCubit({
-    @required this.movieId,
+    required this.movieId,
   }) : super(MovieRuntimeLoading()) {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
       (_connectivityResult) {
@@ -37,10 +36,11 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
           if (state is MovieRuntimeFailed) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   // print("Starting MovieRuntimeCubit Loading");
                   getRuntimeInfo();
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
@@ -69,7 +69,7 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
 
   void getRuntimeInfo() {
     emitLoadingState();
-    int _runtimeMinutes = MovieBucket().getInfo(movieId).runtimeMinutes;
+    int? _runtimeMinutes = MovieBucket().getInfo(movieId).runtimeMinutes;
     if (_runtimeMinutes == null) {
       // print("Cast details not present");
       getRuntimeMinutesHandler?.cancel();
@@ -80,7 +80,7 @@ class MovieRuntimeCubit extends Cubit<MovieRuntimeState> {
         },
       );
 
-      getRuntimeMinutesHandler.value.then((value) {
+      getRuntimeMinutesHandler?.value.then((value) {
         int result = value as int;
         emit(MovieRuntimeLoaded(runtimeMinutes: result));
       }).catchError((_) {

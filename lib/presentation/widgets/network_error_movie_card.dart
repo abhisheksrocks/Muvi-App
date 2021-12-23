@@ -7,7 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 class NetworkErrorMovieCard extends StatelessWidget {
   final double aspectRatio;
   const NetworkErrorMovieCard({
-    Key key,
+    Key? key,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);
   @override
@@ -40,7 +40,7 @@ class NetworkErrorMovieCard extends StatelessWidget {
                 'Network Error',
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .caption!
                     .copyWith(color: Colors.white.withOpacity(0.05)),
                 maxLines: 1,
               )

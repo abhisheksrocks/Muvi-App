@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -21,21 +21,21 @@ class MoviesPopularCubit extends Cubit<MoviesPopularState> {
   int pageNumber = 1;
   List<int> listOfAllMoviesId = [];
   final GenreFetcherCubit genreFetcherCubit;
-  StreamSubscription _genreFetcherCubitSubscription;
+  StreamSubscription? _genreFetcherCubitSubscription;
 
-  // CancelableOperation beginLoadingHandler;
-  CancelableOperation loadMoreResultsHandler;
+  // CancelableOperation? beginLoadingHandler;
+  CancelableOperation? loadMoreResultsHandler;
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
   MoviesPopularCubit({
-    @required this.genreFetcherCubit,
+    required this.genreFetcherCubit,
   }) : super(MoviesPopularLoading()) {
     // print("Emitting: MoviesPopularLoading");
     /*
@@ -51,11 +51,12 @@ class MoviesPopularCubit extends Cubit<MoviesPopularState> {
             if (genreFetcherCubit.state is GenreFetcherLoaded) {
               _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
                 (_dataConnectionStatus) {
-                  if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                  if (_dataConnectionStatus ==
+                      InternetConnectionStatus.connected) {
                     // print(
                     //     "Starting MoviesPopularCubit Loading results since Genre Already Loaded");
                     loadResults();
-                    _dataSubscription.cancel();
+                    _dataSubscription?.cancel();
                   }
                 },
               );
@@ -65,11 +66,11 @@ class MoviesPopularCubit extends Cubit<MoviesPopularState> {
       },
     );
 
-    _genreFetcherCubitSubscription = genreFetcherCubit.listen((state) {
+    _genreFetcherCubitSubscription = genreFetcherCubit.stream.listen((state) {
       // print('GenreFetcherState: $state');
       if (state is GenreFetcherLoaded) {
         loadResults();
-        _genreFetcherCubitSubscription
+        _genreFetcherCubitSubscription!
             .cancel(); //   // genreFetcherCubit.startFetching();
       } else if (state is GenreFetcherLoading) {
         emit(MoviesPopularLoading());
@@ -103,7 +104,7 @@ class MoviesPopularCubit extends Cubit<MoviesPopularState> {
         },
       );
 
-      loadMoreResultsHandler.value.then((value) {
+      loadMoreResultsHandler?.value.then((value) {
         List<int> _listOfMovieIds = value as List<int>;
         if (_listOfMovieIds.isEmpty) {
           emit(MoviesPopularLoaded(isAllLoaded: true));

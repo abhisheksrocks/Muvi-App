@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/presentation/widgets/no_image_movie_card.dart';
+import 'package:muvi/presentation/widgets/no_image_movie_card.dart';
 import '../../cubit/image_manager_cubit.dart';
 import 'network_error_movie_card.dart';
 
@@ -14,8 +14,8 @@ class MyImageViewer extends StatelessWidget {
   final String imagePath;
   final double widgetWidth;
   const MyImageViewer({
-    Key key,
-    @required this.imagePath,
+    Key? key,
+    required this.imagePath,
     this.widgetWidth = 100,
   }) : super(key: key);
 
@@ -100,9 +100,9 @@ class MyAnimatedSwitcher extends StatelessWidget {
   final String imagePath;
   final double widgetWidth;
   MyAnimatedSwitcher({
-    Key key,
-    @required this.imagePath,
-    @required this.widgetWidth,
+    Key? key,
+    required this.imagePath,
+    required this.widgetWidth,
   }) : super(key: key);
 
   Widget childSwitcher(BuildContext context) {
@@ -135,8 +135,8 @@ class MyAnimatedSwitcher extends StatelessWidget {
   }
 
   Widget imageMaker(ImageManagerCubit cubit) {
-    String imageUrl = cubit.imageUrl;
-    String placeholderUrl = cubit.placeholderUrl;
+    String? imageUrl = cubit.imageUrl;
+    String? placeholderUrl = cubit.placeholderUrl;
     if (imageUrl != null) {
       return CachedNetworkImage(
         imageUrl: imageUrl,

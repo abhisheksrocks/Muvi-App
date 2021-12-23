@@ -7,11 +7,11 @@ import 'loading_timeout_overlay.dart';
 
 class LoadingCardListMain extends StatelessWidget {
   const LoadingCardListMain({
-    @required Key key,
-    @required this.cardHeight,
-    @required this.leftEdgePadding,
-    @required this.functionToExecute,
-    @required this.state,
+    required Key? key,
+    required this.cardHeight,
+    required this.leftEdgePadding,
+    required this.functionToExecute,
+    required this.state,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class LoadingCardListMain extends StatelessWidget {
   final double cardHeight;
   final double leftEdgePadding;
   final double aspectRatio;
-  final Function functionToExecute;
+  final void Function()? functionToExecute;
 
   @override
   Widget build(BuildContext context) {

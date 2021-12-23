@@ -12,7 +12,7 @@ class NoElementsOverlay extends StatelessWidget {
           'No matching result!',
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .subtitle1!
               .copyWith(color: Colors.white),
         ),
       ),

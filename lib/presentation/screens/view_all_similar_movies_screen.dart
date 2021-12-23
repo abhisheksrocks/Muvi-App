@@ -11,7 +11,7 @@ import '../widgets/view_all_movies_grid_with_status_widget.dart';
 
 class ViewAllSimilarMoviesScreen extends StatefulWidget {
   const ViewAllSimilarMoviesScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,8 +21,8 @@ class ViewAllSimilarMoviesScreen extends StatefulWidget {
 
 class _ViewAllSimilarMoviesScreenState
     extends State<ViewAllSimilarMoviesScreen> {
-  double eachCardWidth;
-  ScrollController _scrollController;
+  late double eachCardWidth;
+  late ScrollController _scrollController;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -86,7 +86,7 @@ class _ViewAllSimilarMoviesScreenState
           title: Text(
             'Similar Movies',
             style:
-                Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+                Theme.of(context).textTheme.headline1?.apply(fontSizeDelta: 4),
           ),
         ),
         body: Builder(

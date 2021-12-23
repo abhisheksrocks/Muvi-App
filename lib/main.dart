@@ -7,21 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/cubit/animated_drawer_cubit.dart';
-import 'package:Muvi/cubit/genre_fetcher_cubit.dart';
-import 'package:Muvi/cubit/movies_now_showing_cubit.dart';
-import 'package:Muvi/cubit/movies_popular_cubit.dart';
-import 'package:Muvi/cubit/movies_search_cubit.dart';
-import 'package:Muvi/cubit/movies_upcoming_cubit.dart';
-import 'package:Muvi/presentation/core/app_router.dart';
-import 'package:Muvi/presentation/core/app_theme.dart';
+import 'package:muvi/cubit/animated_drawer_cubit.dart';
+import 'package:muvi/cubit/genre_fetcher_cubit.dart';
+import 'package:muvi/cubit/movies_now_showing_cubit.dart';
+import 'package:muvi/cubit/movies_popular_cubit.dart';
+import 'package:muvi/cubit/movies_search_cubit.dart';
+import 'package:muvi/cubit/movies_upcoming_cubit.dart';
+import 'package:muvi/presentation/core/app_router.dart';
+import 'package:muvi/presentation/core/app_theme.dart';
+
+import 'debug/app_bloc_observer.dart';
 
 // import 'package:http/http.dart';
 
 //TODO: Code Cleanup - jaise kahin tune widgets me width manga hai aur kahin height, make it consistent
 //TODO: Jo baar baar reuse ho rhe hain widgets usko ek single file ya widget me banana
 //TODO: Grid View Builder main rows ke beech me gap
-//TODO: Hero (Not getting required result for Carousel, so discarding :(, maybe will try experimenting with ListView instead )
+// * Hero (Not getting required result for Carousel, so discarding :(, maybe will try experimenting with ListView instead )
+// ! Found that it wont be possible with Since ListView doesn't automatically fixes its position
+// ! if the user left it in middle of two list items
 //TODO: About Page
 //TODO: Settings Page(For later)
 //TODO: Animated Logo for loading screen (Later, TBH Nothing to load initially)
@@ -40,7 +44,7 @@ void main() {
   //     builder: (context) => MyApp(), // Wrap your app
   //   ),
   // );
-
+  Bloc.observer = AppBlocObserver();
   runApp(MyApp());
 }
 

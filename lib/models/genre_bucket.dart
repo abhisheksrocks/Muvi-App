@@ -1,6 +1,3 @@
-// 📦 Package imports:
-import 'package:meta/meta.dart';
-
 // 🌎 Project imports:
 import 'genre_model.dart';
 
@@ -8,8 +5,8 @@ class GenreBucket {
   static List<GenreModel> _genresList = [];
 
   void addGenre({
-    @required int id,
-    @required String genre,
+    required int id,
+    required String genre,
   }) {
     try {
       final result = _genresList.firstWhere((element) => element.id == id);
@@ -21,7 +18,7 @@ class GenreBucket {
   }
 
   String getGenre({
-    @required int id,
+    required int id,
   }) {
     try {
       return _genresList.firstWhere((element) => element.id == id).genre;

@@ -20,15 +20,15 @@ class CardListMoviesGeneral extends StatelessWidget {
   final double leftEdgePadding;
 
   const CardListMoviesGeneral({
-    Key key,
-    @required this.parentCubit,
+    Key? key,
+    required this.parentCubit,
     this.cardHeight = 173,
     this.isUpcomingCard = false,
     this.leftEdgePadding = 8,
   }) : super(key: key);
 
   Widget childSwitcher({
-    @required BuildContext context,
+    required BuildContext context,
   }) {
     // print("Here ${parentCubit.state}");
     if (parentCubit.listOfAllMoviesId.length == 0) {

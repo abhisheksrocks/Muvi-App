@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/presentation/widgets/icon_maker.dart';
+import 'package:muvi/presentation/widgets/icon_maker.dart';
 
 class PageNotFound extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class PageNotFound extends StatelessWidget {
         ),
         title: Text(
           'Page Not Found',
-          style: Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+          style: Theme.of(context).textTheme.headline1!.apply(fontSizeDelta: 4),
         ),
       ),
       body: Column(

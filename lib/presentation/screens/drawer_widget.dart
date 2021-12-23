@@ -12,15 +12,15 @@ import '../../cubit/animated_drawer_cubit.dart';
 class DrawerWidget extends StatefulWidget {
   final AnimationController animationController;
   const DrawerWidget({
-    Key key,
-    @required this.animationController,
+    Key? key,
+    required this.animationController,
   }) : super(key: key);
   @override
   _DrawerWidgetState createState() => _DrawerWidgetState();
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-  Animation<Offset> _drawerSlideTransition;
+  late Animation<Offset> _drawerSlideTransition;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       semanticsLabel: "App's current version",
                       style: Theme.of(context)
                           .textTheme
-                          .headline3
+                          .headline3!
                           .copyWith(color: Colors.pink),
                     ),
                   ],

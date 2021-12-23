@@ -14,7 +14,7 @@ class MovieCastFetcherLoading extends MovieCastFetcherState {
 class MovieCastFetcherLoaded extends MovieCastFetcherState {
   final List<String> listOfCasts;
   MovieCastFetcherLoaded({
-    @required this.listOfCasts,
+    required this.listOfCasts,
   });
 }
 

@@ -10,8 +10,8 @@ class ViewAllCastsScreen extends StatefulWidget {
   final MovieCastFetcherLoaded state;
 
   const ViewAllCastsScreen({
-    Key key,
-    @required this.state,
+    Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class ViewAllCastsScreen extends StatefulWidget {
 }
 
 class _ViewAllCastsScreenState extends State<ViewAllCastsScreen> {
-  double eachCardWidth;
+  late double eachCardWidth;
 
   double findEachCardWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -48,7 +48,7 @@ class _ViewAllCastsScreenState extends State<ViewAllCastsScreen> {
         ),
         title: Text(
           'Cast',
-          style: Theme.of(context).textTheme.headline1.apply(fontSizeDelta: 4),
+          style: Theme.of(context).textTheme.headline1!.apply(fontSizeDelta: 4),
         ),
       ),
       body: CastGridViewBuilder(

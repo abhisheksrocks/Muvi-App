@@ -3,7 +3,6 @@ import 'dart:convert';
 
 // 📦 Package imports:
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
 import '../common/all_enums.dart';
@@ -19,9 +18,9 @@ class MovieRepository {
   final MovieBucket _moviesBucket = MovieBucket();
 
   Future<List<int>> getMoviesFromServer({
-    @required GetMovies queryType,
-    // String language = 'en-US',
-    String language,
+    required GetMovies queryType,
+    // String? language = 'en-US',
+    String? language,
     String pageNumber = '1',
     String region = 'US',
   }) async {
@@ -49,7 +48,10 @@ class MovieRepository {
       _query = "$_query&language=$language";
     }
     List<int> listToReturn = []; //List of Movie IDs
-    http.Response response = await http.get(_query);
+    // http.get(Uri.parse(_query))
+    Uri uri = Uri.parse(_query);
+    print("getMoviesFromServer uri: $uri");
+    http.Response response = await http.get(uri);
     // print("Response Status Code: ${response.statusCode}");
     // print("Response Status Body: ${response.body}");
     switch (response.statusCode) {
@@ -92,15 +94,15 @@ class MovieRepository {
   }
 
   Future<List<String>> getCastInfo({
-    @required int movieId,
-    String language,
+    required int movieId,
+    String? language,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId/credits?api_key=$_apiKey";
     if (language != null && language != '') {
       _query = "$_query&language=$language";
     }
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     switch (response.statusCode) {
       case 200:
         final List result =
@@ -133,15 +135,15 @@ class MovieRepository {
   }
 
   Future<List<String>> getVideos({
-    @required int movieId,
-    String language,
+    required int movieId,
+    String? language,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId/videos?api_key=$_apiKey";
     if (language != null && language != '') {
       _query = "$_query&language=$language";
     }
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     switch (response.statusCode) {
       case 200:
         final List result =
@@ -172,16 +174,16 @@ class MovieRepository {
   }
 
   Future<List<String>> getReviews({
-    @required int movieId,
+    required int movieId,
     int page = 1,
-    String language,
+    String? language,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId/reviews?api_key=$_apiKey&page=$page";
     if (language != null && language != '') {
       _query = "$_query&language=$language";
     }
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     switch (response.statusCode) {
       case 200:
         final List result =
@@ -198,7 +200,7 @@ class MovieRepository {
             id: element['id'],
             author: element['author'],
             content: element['content'],
-            rating: element['author_details']['rating'] != null
+            rating: element['author_details']!['rating'] != null
                 ? ((element['author_details'] as Map<String, dynamic>)['rating']
                         as num)
                     .toInt()
@@ -222,16 +224,16 @@ class MovieRepository {
   }
 
   Future<List<int>> getSimilarMovies({
-    @required int movieId,
+    required int movieId,
     int page = 1,
-    String language,
+    String? language,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId/similar?api_key=$_apiKey&page=$page";
     if (language != null && language != '') {
       _query = "$_query&language=$language";
     }
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     // print("Response Status Code: ${response.statusCode}");
     // print("Response Status Body: ${response.body}");
     switch (response.statusCode) {
@@ -278,14 +280,14 @@ class MovieRepository {
   }
 
   Future<List<int>> searchMovie({
-    @required String searchQuery,
+    required String searchQuery,
     int page = 1,
   }) async {
     // print(
     //     "Searching Movie related to SearchQuery: $searchQuery at Page: $page");
     String _query =
         "https://api.themoviedb.org/3/search/movie?api_key=$_apiKey&query=$searchQuery&page=$page";
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     // print("Response Status Code: ${response.statusCode}");
     // print("Response Status Body: ${response.body}");
     switch (response.statusCode) {
@@ -334,15 +336,15 @@ class MovieRepository {
   }
 
   Future<int> getMovieRuntime({
-    @required int movieId,
-    String language,
+    required int movieId,
+    String? language,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId?api_key=$_apiKey";
     if (language != null && language != '') {
       _query = "$_query&language=$language";
     }
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     // print("Response Status Code: ${response.statusCode}");
     // print("Response Status Body: ${response.body}");
     switch (response.statusCode) {
@@ -383,21 +385,21 @@ class MovieRepository {
   }
 
   Future<String> getCertification({
-    @required int movieId,
+    required int movieId,
   }) async {
     String _query =
         "https://api.themoviedb.org/3/movie/$movieId/release_dates?api_key=$_apiKey";
-    http.Response response = await http.get(_query);
+    http.Response response = await http.get(Uri.parse(_query));
     switch (response.statusCode) {
       case 200:
         final List result =
             (jsonDecode(response.body) as Map<String, dynamic>)['results'];
 
-        String indianMovieCertificate;
+        String? indianMovieCertificate;
 
-        String usMovieCertificate;
+        String? usMovieCertificate;
 
-        String otherMovieCertificate;
+        String? otherMovieCertificate;
 
         // result.forEach((element) {
         for (int index = 0; index < result.length; index++) {
@@ -422,7 +424,7 @@ class MovieRepository {
                 var myExp = RegExp(r"^\d{1,2}\+?$");
                 if (myExp.hasMatch(certificate)) {
                   otherMovieCertificate ??=
-                      myExp.firstMatch(certificate).group(0);
+                      myExp.firstMatch(certificate)!.group(0);
                 }
               }
             }

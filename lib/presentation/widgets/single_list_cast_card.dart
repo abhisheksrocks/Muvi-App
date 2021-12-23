@@ -11,9 +11,9 @@ import 'title_text.dart';
 
 class SingleListCastCard extends StatelessWidget {
   SingleListCastCard({
-    Key key,
-    @required this.cardHeight,
-    @required this.creditId,
+    Key? key,
+    required this.cardHeight,
+    required this.creditId,
     this.isFirst = false,
     this.leftEdgeInsets = 18,
   })  : castInfo = CastBucket().getCast(creditId: creditId),
@@ -58,7 +58,7 @@ class SingleListCastCard extends StatelessWidget {
                 //   fit: BoxFit.cover,
                 // ),
                 child: MyImageViewer(
-                  imagePath: castInfo.person.avatarPath,
+                  imagePath: castInfo.person.avatarPath!,
                   widgetWidth: cardWidth,
                 ),
               ),
@@ -79,12 +79,12 @@ class SingleListCastCard extends StatelessWidget {
                 // ),
                 TitleText(
                   title: '${castInfo.person.name}',
-                  textStyle: Theme.of(context).textTheme.headline3,
+                  textStyle: Theme.of(context).textTheme.headline3!,
                 ),
                 (castInfo.characterName != null && castInfo.characterName != '')
                     ? SubtitleText(
-                        textToDisplay: castInfo.characterName,
-                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        textToDisplay: castInfo.characterName!,
+                        textStyle: Theme.of(context).textTheme.bodyText2!,
                       )
                     : SizedBox(),
               ],

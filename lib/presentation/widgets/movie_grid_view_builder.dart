@@ -7,11 +7,11 @@ import 'single_list_movie_card.dart';
 
 class MovieGridViewBuilder extends StatelessWidget {
   const MovieGridViewBuilder({
-    Key key,
-    @required this.scrollController,
-    @required this.cubit,
-    @required this.eachCardWidth,
-    @required this.movieBucketObject,
+    Key? key,
+    required this.scrollController,
+    required this.cubit,
+    required this.eachCardWidth,
+    required this.movieBucketObject,
     this.isUpcomingCard = false,
   }) : super(key: key);
 

@@ -13,7 +13,7 @@ class MovieReviewsFetcherLoading extends MovieReviewsFetcherState {
 class MovieReviewsFetcherLoaded extends MovieReviewsFetcherState {
   final List<String> listOfReviews;
   MovieReviewsFetcherLoaded({
-    @required this.listOfReviews,
+    required this.listOfReviews,
   });
 }
 

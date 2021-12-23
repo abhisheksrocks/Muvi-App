@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 // 🌎 Project imports:
 import '../common/all_enums.dart';
@@ -24,21 +24,22 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
   List<int> listOfAllMoviesId = [];
 
   final GenreFetcherCubit genreFetcherCubit;
-  StreamSubscription _genreFetcherCubitSubscription;
+  StreamSubscription? _genreFetcherCubitSubscription;
 
-  // CancelableOperation beginLoadingHandler;
-  CancelableOperation loadMoreResultsHandler;
+  // CancelableOperation? beginLoadingHandler;
+  CancelableOperation? loadMoreResultsHandler;
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  // ;
+  StreamSubscription? _dataSubscription;
 
   MoviesNowShowingCubit({
-    @required this.genreFetcherCubit,
+    required this.genreFetcherCubit,
   }) : super(MoviesNowShowingLoading()) {
     // print("Emitting: MoviesNowShowingLoading");
     /*
@@ -48,18 +49,19 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
     */
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
       (_connectivityResult) {
-        // print(
-        //     "ConnectivityResult @ MoviesNowShowingCubit: $_connectivityResult");
+        print(
+            "ConnectivityResult @ MoviesNowShowingCubit: $_connectivityResult");
         if (_connectivityResult != ConnectivityResult.none) {
           if (state is MoviesNowShowingFailed) {
             if (genreFetcherCubit.state is GenreFetcherLoaded) {
               _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
                 (_dataConnectionStatus) {
-                  if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                  if (_dataConnectionStatus ==
+                      InternetConnectionStatus.connected) {
                     // print(
                     //     "Starting MoviesNowShowingCubit Loading results since Genre Already Loaded");
                     loadResults();
-                    _dataSubscription.cancel();
+                    _dataSubscription?.cancel();
                   }
                 },
               );
@@ -69,10 +71,10 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
       },
     );
 
-    _genreFetcherCubitSubscription = genreFetcherCubit.listen((state) {
+    _genreFetcherCubitSubscription = genreFetcherCubit.stream.listen((state) {
       if (state is GenreFetcherLoaded) {
         loadResults();
-        _genreFetcherCubitSubscription
+        _genreFetcherCubitSubscription!
             .cancel(); //   // genreFetcherCubit.startFetching();
       } else if (state is GenreFetcherLoading) {
         emit(MoviesNowShowingLoading());
@@ -101,7 +103,7 @@ class MoviesNowShowingCubit extends Cubit<MoviesNowShowingState> {
         },
       );
 
-      loadMoreResultsHandler.value.then((value) {
+      loadMoreResultsHandler?.value.then((value) {
         List<int> _listOfMovieIds = value as List<int>;
         if (_listOfMovieIds.isEmpty) {
           emit(MoviesNowShowingLoaded(isAllLoaded: true));

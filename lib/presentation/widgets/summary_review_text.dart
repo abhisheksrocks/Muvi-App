@@ -11,9 +11,9 @@ class SummaryReviewText extends StatelessWidget {
   final TextStyle textStyle;
   final int linesToShow;
   const SummaryReviewText({
-    Key key,
-    @required this.textData,
-    @required this.textStyle,
+    Key? key,
+    required this.textData,
+    required this.textStyle,
     this.linesToShow = 5,
   }) : super(key: key);
   @override
@@ -37,7 +37,7 @@ class SummaryReviewText extends StatelessWidget {
             trimMode: TrimMode.Line,
             trimExpandedText: '... show less',
             trimCollapsedText: '... show more',
-            delimiter: null,
+            delimiter: '',
             lessStyle: TextStyle(
               color: Theme.of(context).accentColor,
               fontStyle: FontStyle.italic,

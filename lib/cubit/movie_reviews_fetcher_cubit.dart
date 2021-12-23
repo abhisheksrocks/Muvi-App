@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -18,17 +18,17 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
   final int movieId;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  CancelableOperation getReviewInfoHandler;
+  CancelableOperation? getReviewInfoHandler;
   int timeoutSeconds = 10;
 
   MovieReviewsFetcherCubit({
-    @required this.movieId,
+    required this.movieId,
   }) : super(MovieReviewsFetcherLoading()) {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
       (_connectivityResult) {
@@ -38,10 +38,11 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
           if (state is MovieReviewsFetcherFailed) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   // print("Starting MovieReviewsFetcherCubit Loading");
                   getReviewInfo();
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
@@ -54,7 +55,7 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
 
   void getReviewInfo() {
     emitLoadingState();
-    List<String> _listOfReviews = MovieBucket().getInfo(movieId).reviews;
+    List<String>? _listOfReviews = MovieBucket().getInfo(movieId).reviews;
     if (_listOfReviews == null || _listOfReviews.isEmpty) {
       // print("Cast details not present");
       getReviewInfoHandler?.cancel();
@@ -65,7 +66,7 @@ class MovieReviewsFetcherCubit extends Cubit<MovieReviewsFetcherState> {
         },
       );
 
-      getReviewInfoHandler.value.then((value) {
+      getReviewInfoHandler?.value.then((value) {
         List<String> result = value as List<String>;
         emit(MovieReviewsFetcherLoaded(listOfReviews: result));
       }).catchError((_) {

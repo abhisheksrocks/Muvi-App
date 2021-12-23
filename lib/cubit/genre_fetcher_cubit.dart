@@ -4,7 +4,8 @@ import 'dart:async';
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -14,11 +15,11 @@ part 'genre_fetcher_state.dart';
 
 class GenreFetcherCubit extends Cubit<GenreFetcherState> {
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
   GenreFetcherCubit() : super(GenreFetcherLoading()) {
     _connectivitySubscription =
@@ -27,9 +28,9 @@ class GenreFetcherCubit extends Cubit<GenreFetcherState> {
         if (state is GenreFetcherFailed) {
           _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
             (_dataConnectionStatus) {
-              if (_dataConnectionStatus == DataConnectionStatus.connected) {
+              if (_dataConnectionStatus == InternetConnectionStatus.connected) {
                 startFetching();
-                _dataSubscription.cancel();
+                _dataSubscription?.cancel();
               }
             },
           );
@@ -37,7 +38,7 @@ class GenreFetcherCubit extends Cubit<GenreFetcherState> {
       }
 
       if (state is GenreFetcherLoaded) {
-        _connectivitySubscription.cancel();
+        _connectivitySubscription?.cancel();
       }
     });
     startFetching();

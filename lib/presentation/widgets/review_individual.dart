@@ -9,8 +9,8 @@ import 'summary_review_text.dart';
 
 class ReviewIndividual extends StatelessWidget {
   const ReviewIndividual({
-    Key key,
-    @required this.reviewModel,
+    Key? key,
+    required this.reviewModel,
   }) : super(key: key);
 
   final ReviewModel reviewModel;
@@ -37,14 +37,14 @@ class ReviewIndividual extends StatelessWidget {
             if (reviewModel.rating != null) HorizontalDividerSmall(),
             if (reviewModel.rating != null)
               RatingWithText(
-                avgRatingOutOfTen: reviewModel.rating.toDouble(),
+                avgRatingOutOfTen: reviewModel.rating!.toDouble(),
               ),
           ],
         ),
         SummaryReviewText(
           key: ValueKey('Review'),
           textData: '${reviewModel.content}',
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyText1!,
           linesToShow: 20,
         ),
       ],

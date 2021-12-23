@@ -7,9 +7,9 @@ import 'network_error_overlay.dart';
 
 class NetworkErrorCardListMain extends StatelessWidget {
   const NetworkErrorCardListMain({
-    @required Key key,
-    @required this.cardHeight,
-    @required this.leftEdgeInsets,
+    required Key? key,
+    required this.cardHeight,
+    required this.leftEdgeInsets,
     this.functionToExecute,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class NetworkErrorCardListMain extends StatelessWidget {
   final double cardHeight;
   final double leftEdgeInsets;
   final double aspectRatio;
-  final Function functionToExecute;
+  final void Function()? functionToExecute;
 
   @override
   Widget build(BuildContext context) {

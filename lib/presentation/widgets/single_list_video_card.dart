@@ -6,8 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:Muvi/presentation/widgets/network_error_movie_card.dart';
-import 'package:Muvi/presentation/widgets/network_error_overlay.dart';
+import 'package:muvi/presentation/widgets/network_error_movie_card.dart';
+import 'package:muvi/presentation/widgets/network_error_overlay.dart';
 import '../../models/video_bucket.dart';
 import '../../models/video_model.dart';
 import '../core/app_style.dart';
@@ -17,9 +17,9 @@ import 'title_text.dart';
 
 class SingleListVideoCard extends StatelessWidget {
   SingleListVideoCard({
-    Key key,
-    @required this.cardHeight,
-    @required this.videoId,
+    Key? key,
+    required this.cardHeight,
+    required this.videoId,
     this.isFirst = false,
     this.leftEdgePadding = 18,
   })  : videoInfo = VideoBucket().getVideo(id: videoId),
@@ -101,11 +101,11 @@ class SingleListVideoCard extends StatelessWidget {
                   // ),
                   TitleText(
                     title: '${videoInfo.title}',
-                    textStyle: Theme.of(context).textTheme.headline3,
+                    textStyle: Theme.of(context).textTheme.headline3!,
                   ),
                   SubtitleText(
                     textToDisplay: videoInfo.provider,
-                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    textStyle: Theme.of(context).textTheme.bodyText2!,
                   ),
                 ],
               ),

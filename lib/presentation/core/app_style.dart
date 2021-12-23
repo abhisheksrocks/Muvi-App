@@ -10,7 +10,7 @@ class AppStyle {
   Shader defaultPosterShader(Rect bounds) {
     ThemeData themeInfo = AppTheme().call();
     Color background = themeInfo.backgroundColor;
-    Color foreground = themeInfo.iconTheme.color;
+    Color foreground = themeInfo.iconTheme.color!;
     return LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,

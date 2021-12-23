@@ -4,7 +4,7 @@ import 'dart:async';
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:meta/meta.dart';
@@ -20,13 +20,13 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
   final double placeholderWidth;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
   ImageManagerCubit({
-    @required this.posterImagePath,
+    required this.posterImagePath,
     this.placeholderWidth = 100,
   }) : super(ImageManagerLoading()) {
     _connectivitySubscription =
@@ -38,28 +38,32 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
           if (!widgetState.isImagepathEmpty) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   // print("Starting GenreFetcherCubit");
                   emit(ImageManagerLoaded());
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
           } else {
-            _connectivitySubscription.cancel();
+            _connectivitySubscription?.cancel();
           }
         }
       }
     });
 
-    if (posterImagePath == null || posterImagePath?.trim() == '') {
+    if (posterImagePath.trim() == '') {
+      //ADDED 17-07
+      // if (posterImagePath == null || posterImagePath?.trim() == '') { //ORIGINAL
       emit(ImageManagerFailed(
         isImagepathEmpty: true,
       ));
     } else {
       var a = _imageBucket.getImageUrl(imagePath: posterImagePath);
       if (a != null) {
-        if (findWidthForImage(a) >= placeholderWidth) {
+        int? widthOfImage = findWidthForImage(a);
+        if (widthOfImage != null && widthOfImage >= placeholderWidth) {
           imageUrl = a;
           emit(ImageManagerLoaded());
         } else {
@@ -77,7 +81,7 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
     emit(ImageManagerFailed(isImagepathEmpty: false));
   }
 
-  int findWidthForImage(String url) {
+  int? findWidthForImage(String url) {
     try {
       int width = int.parse(url.substring(28, 31));
       return width;
@@ -86,8 +90,8 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
     }
   }
 
-  String placeholderUrl;
-  String imageUrl;
+  String? placeholderUrl;
+  String? imageUrl;
 
   ImageBucket _imageBucket = ImageBucket();
 
@@ -100,7 +104,7 @@ class ImageManagerCubit extends Cubit<ImageManagerState> {
   void findAndGetImage() async {
     for (int index = PosterSizes.values.length - 1; index >= 0; index--) {
       PosterSizes _currentSize = PosterSizes.values.elementAt(index);
-      FileInfo _fileInfo = await _cacheManager.getFileFromCache(
+      FileInfo? _fileInfo = await _cacheManager.getFileFromCache(
         "https://image.tmdb.org/t/p/${EnumToString.convertToString(_currentSize)}$posterImagePath",
       );
       if (_fileInfo != null) {

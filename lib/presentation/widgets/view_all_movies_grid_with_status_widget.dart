@@ -8,10 +8,10 @@ import 'page_loading_status.dart';
 
 class ViewAllMoviesGridWithStatusWidget extends StatelessWidget {
   const ViewAllMoviesGridWithStatusWidget({
-    Key key,
-    @required this.scrollController,
-    @required this.cubit,
-    @required this.eachCardWidth,
+    Key? key,
+    required this.scrollController,
+    required this.cubit,
+    required this.eachCardWidth,
     this.isUpcomingCard = false,
   }) : super(key: key);
 

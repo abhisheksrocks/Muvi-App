@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -18,17 +18,17 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
   final int movieId;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  CancelableOperation getVideoInfoHandler;
+  CancelableOperation? getVideoInfoHandler;
   int timeoutSeconds = 10;
 
   MovieVideosFetcherCubit({
-    @required this.movieId,
+    required this.movieId,
   }) : super(MovieVideosFetcherLoading()) {
     /*
     Use the following only in case when jub internet wapas aaye 
@@ -42,10 +42,11 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
           if (state is MovieVideosFetcherFailed) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   // print("Starting MoviesUpcomingCubit Loading");
                   getVideosInfo();
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
@@ -59,7 +60,7 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
 
   void getVideosInfo() {
     emitLoadingState();
-    List<String> _listOfVideos = MovieBucket().getInfo(movieId).videos;
+    List<String>? _listOfVideos = MovieBucket().getInfo(movieId).videos;
     if (_listOfVideos == null || _listOfVideos.isEmpty) {
       // print("Cast details not present");
       getVideoInfoHandler?.cancel();
@@ -70,7 +71,7 @@ class MovieVideosFetcherCubit extends Cubit<MovieVideosFetcherState> {
         },
       );
 
-      getVideoInfoHandler.value.then((value) {
+      getVideoInfoHandler?.value.then((value) {
         List<String> result = value as List<String>;
         emit(MovieVideosFetcherLoaded(listOfVideos: result));
       }).catchError((_) {

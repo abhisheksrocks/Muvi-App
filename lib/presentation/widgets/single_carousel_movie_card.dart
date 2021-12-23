@@ -12,11 +12,11 @@ class SingleCarouselMovieCard extends StatelessWidget {
   final double cardHeight;
   final double difference;
   const SingleCarouselMovieCard({
-    Key key,
-    @required MovieModel currentMovieModel,
-    @required this.cardHeight,
-    @required this.difference,
-  })  : _currentMovieModel = currentMovieModel,
+    Key? key,
+    required MovieModel currentMovieModel,
+    required this.cardHeight,
+    required this.difference,
+  })   : _currentMovieModel = currentMovieModel,
         super(key: key);
 
   final MovieModel _currentMovieModel;
@@ -40,7 +40,7 @@ class SingleCarouselMovieCard extends StatelessWidget {
                 child: ShaderMask(
                   shaderCallback: AppStyle().defaultPosterShader,
                   child: MyImageViewer(
-                    imagePath: _currentMovieModel.posterImagePath,
+                    imagePath: _currentMovieModel.posterImagePath!,
                     widgetWidth: cardHeight * 2 / 3,
                   ),
                 ),
@@ -53,12 +53,12 @@ class SingleCarouselMovieCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TitleText(
-                    title: _currentMovieModel.title,
-                    textStyle: Theme.of(context).textTheme.headline2,
+                    title: _currentMovieModel.title!,
+                    textStyle: Theme.of(context).textTheme.headline2!,
                   ),
                   GenreText(
-                    genreIds: _currentMovieModel.genreIds,
-                    textStyle: Theme.of(context).textTheme.subtitle1,
+                    genreIds: _currentMovieModel.genreIds!,
+                    textStyle: Theme.of(context).textTheme.subtitle1!,
                   ),
                 ],
               ),

@@ -1,6 +1,3 @@
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // 📦 Package imports:
 import 'package:intl/intl.dart';
 
@@ -11,20 +8,20 @@ class MovieBucket {
   static List<MovieModel> _listOfMovies = [];
 
   void addInfo({
-    @required int id,
-    String posterImagePath,
-    String title,
-    String summary,
-    String releaseDate,
-    List<int> genreIds,
-    double avgRatingOutOfTen,
-    int totalRatingCount,
-    List<String> casts,
-    List<String> videos,
-    List<String> reviews,
-    List<int> similarMovies,
-    String certification,
-    int runtimeMinutes,
+    required int id,
+    String? posterImagePath,
+    String? title,
+    String? summary,
+    String? releaseDate,
+    List<int>? genreIds,
+    double? avgRatingOutOfTen,
+    int? totalRatingCount,
+    List<String>? casts,
+    List<String>? videos,
+    List<String>? reviews,
+    List<int>? similarMovies,
+    String? certification,
+    int? runtimeMinutes,
   }) {
     try {
       MovieModel movie =

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../core/app_style.dart';
 
 class ViewAllButton extends StatelessWidget {
-  final Function functionToExecute;
+  final void Function()? functionToExecute;
   const ViewAllButton({
-    Key key,
+    Key? key,
     this.functionToExecute,
   }) : super(key: key);
   @override
@@ -35,12 +35,12 @@ class ViewAllButton extends StatelessWidget {
               semanticsLabel:
                   '${functionToExecute == null ? 'Disabled' : ''} View all button',
               style: functionToExecute != null
-                  ? Theme.of(context).textTheme.button.copyWith(
+                  ? Theme.of(context).textTheme.button!.copyWith(
                         color: Colors.black,
                       )
                   : Theme.of(context)
                       .textTheme
-                      .button
+                      .button!
                       .copyWith(color: Colors.grey.shade800),
             ),
           ),

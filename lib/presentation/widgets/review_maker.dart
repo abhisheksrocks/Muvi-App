@@ -18,11 +18,11 @@ import 'review_individual.dart';
 class ReviewMaker extends StatelessWidget {
   final MovieReviewsFetcherCubit parentCubit;
   ReviewMaker({
-    Key key,
-    @required this.parentCubit,
+    Key? key,
+    required this.parentCubit,
   }) : super(key: key);
 
-  ReviewModel getReview({@required MovieReviewsFetcherLoaded state}) {
+  ReviewModel getReview({required MovieReviewsFetcherLoaded state}) {
     List<ReviewModel> _list = [];
     ReviewBucket _reviewBucket = ReviewBucket();
     state.listOfReviews.forEach((element) {
@@ -34,7 +34,7 @@ class ReviewMaker extends StatelessWidget {
       } else if (b.rating == null) {
         return 1000;
       }
-      return a.rating.compareTo(b.rating);
+      return a.rating!.compareTo(b.rating!);
     });
     // while (true) {
     // _list.forEach((element) {
@@ -46,7 +46,7 @@ class ReviewMaker extends StatelessWidget {
     // }
   }
 
-  Widget childSwitcher({@required BuildContext context}) {
+  Widget childSwitcher({required BuildContext context}) {
     var state = parentCubit.state;
     // print(state);
     if (state is MovieReviewsFetcherLoaded) {

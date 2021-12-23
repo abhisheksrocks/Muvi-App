@@ -7,7 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class ReviewBackgroundAllConditions extends StatelessWidget {
   final Color foregroundColor;
   const ReviewBackgroundAllConditions({
-    Key key,
+    Key? key,
     this.foregroundColor = Colors.white,
   }) : super(key: key);
 

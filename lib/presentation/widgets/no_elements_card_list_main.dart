@@ -7,9 +7,9 @@ import 'no_elements_overlay.dart';
 
 class NoElementsCardListMain extends StatelessWidget {
   const NoElementsCardListMain({
-    @required Key key,
-    @required this.cardHeight,
-    @required this.leftEdgePadding,
+    required Key? key,
+    required this.cardHeight,
+    required this.leftEdgePadding,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);
 

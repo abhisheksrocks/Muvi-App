@@ -1,5 +1,4 @@
 // 📦 Package imports:
-import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
 import 'cast_model.dart';
@@ -9,9 +8,9 @@ class CastBucket {
   static List<CastModel> _allCasts = [];
 
   void addCast({
-    @required String creditId,
-    @required PersonModel person,
-    @required String characterName,
+    required String creditId,
+    required PersonModel person,
+    required String characterName,
   }) {
     try {
       _allCasts.firstWhere((element) => element.creditId == creditId);
@@ -27,7 +26,7 @@ class CastBucket {
   }
 
   CastModel getCast({
-    String creditId,
+    required String creditId,
   }) {
     return _allCasts.firstWhere((element) => element.creditId == creditId);
   }

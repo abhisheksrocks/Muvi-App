@@ -1,6 +1,3 @@
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // 🌎 Project imports:
 import 'video_model.dart';
 
@@ -8,10 +5,10 @@ class VideoBucket {
   static List<VideoModel> _listOfVideos = [];
 
   void addVideo({
-    @required String id,
-    @required String path,
-    @required String title,
-    @required String provider,
+    required String id,
+    required String path,
+    required String title,
+    required String provider,
   }) {
     try {
       _listOfVideos.firstWhere((element) => element.id == id);
@@ -26,7 +23,7 @@ class VideoBucket {
   }
 
   VideoModel getVideo({
-    @required String id,
+    required String id,
   }) {
     return _listOfVideos.firstWhere((element) => element.id == id);
   }

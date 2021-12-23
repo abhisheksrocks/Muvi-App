@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 // 🌎 Project imports:
@@ -20,18 +20,18 @@ class MoviesSimilarFetcherCubit extends Cubit<MoviesSimilarFetcherState> {
   List<int> listOfAllMoviesId = [];
   final int movieId;
 
-  // CancelableOperation beginLoadingHandler;
-  CancelableOperation loadMoreResultsHandler;
+  // CancelableOperation? beginLoadingHandler;
+  CancelableOperation? loadMoreResultsHandler;
   int timeoutSeconds = 10;
 
   Connectivity _connectivity = Connectivity();
-  StreamSubscription _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
-  DataConnectionChecker _dataConnectionChecker = DataConnectionChecker()
+  InternetConnectionChecker _dataConnectionChecker = InternetConnectionChecker()
     ..checkInterval = Duration(seconds: 1);
-  StreamSubscription _dataSubscription;
+  StreamSubscription? _dataSubscription;
 
-  MoviesSimilarFetcherCubit({@required this.movieId})
+  MoviesSimilarFetcherCubit({required this.movieId})
       : super(MoviesSimilarFetcherLoading()) {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
       (_connectivityResult) {
@@ -41,10 +41,11 @@ class MoviesSimilarFetcherCubit extends Cubit<MoviesSimilarFetcherState> {
           if (state is MoviesSimilarFetcherFailed) {
             _dataSubscription = _dataConnectionChecker.onStatusChange.listen(
               (_dataConnectionStatus) {
-                if (_dataConnectionStatus == DataConnectionStatus.connected) {
+                if (_dataConnectionStatus ==
+                    InternetConnectionStatus.connected) {
                   // print("Starting MoviesSimilarFetcherCubit Loading");
                   loadResults();
-                  _dataSubscription.cancel();
+                  _dataSubscription?.cancel();
                 }
               },
             );
@@ -74,7 +75,7 @@ class MoviesSimilarFetcherCubit extends Cubit<MoviesSimilarFetcherState> {
         },
       );
 
-      loadMoreResultsHandler.value.then((value) {
+      loadMoreResultsHandler?.value.then((value) {
         List<int> _listOfMovieIds = value as List<int>;
         if (_listOfMovieIds.isEmpty) {
           emit(MoviesSimilarFetcherLoaded(isAllLoaded: true));

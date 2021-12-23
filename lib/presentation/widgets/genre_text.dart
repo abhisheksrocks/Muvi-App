@@ -9,9 +9,9 @@ class GenreText extends StatelessWidget {
   final List<int> genreIds;
   final TextStyle textStyle;
   const GenreText({
-    Key key,
-    @required this.genreIds,
-    @required this.textStyle,
+    Key? key,
+    required this.genreIds,
+    required this.textStyle,
   }) : super(key: key);
 
   @override

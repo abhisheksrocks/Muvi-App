@@ -11,10 +11,10 @@ class MovieRuntimeLoading extends MovieRuntimeState {
 
 class MovieRuntimeLoaded extends MovieRuntimeState {
   final int runtimeMinutes;
-  String minutesInString;
-  String semanticLabel;
+  late String minutesInString;
+  String? semanticLabel;
   MovieRuntimeLoaded({
-    @required this.runtimeMinutes,
+    required this.runtimeMinutes,
   }) {
     int hrs = runtimeMinutes ~/ 60;
     int min = runtimeMinutes % 60;

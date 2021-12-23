@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class NoElementsMovieCard extends StatelessWidget {
   final double aspectRatio;
   const NoElementsMovieCard({
-    Key key,
+    Key? key,
     this.aspectRatio = 2 / 3,
   }) : super(key: key);
   @override

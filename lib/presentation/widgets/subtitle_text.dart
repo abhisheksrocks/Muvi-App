@@ -6,9 +6,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 class SubtitleText extends StatelessWidget {
   const SubtitleText({
-    Key key,
-    @required this.textToDisplay,
-    @required this.textStyle,
+    Key? key,
+    required this.textToDisplay,
+    required this.textStyle,
   }) : super(key: key);
 
   final String textToDisplay;

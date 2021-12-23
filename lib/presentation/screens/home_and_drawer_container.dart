@@ -17,10 +17,10 @@ class HomeAndDrawerContainer extends StatefulWidget {
 class _HomeAndDrawerContainerState extends State<HomeAndDrawerContainer>
     with SingleTickerProviderStateMixin {
   final Duration _animationDuration = Duration(milliseconds: 500);
-  AnimationController _animationController;
-  Animation<Offset> _slideTransition;
-  Animation<double> _scaleAnimation;
-  Animation<double> _borderRadius;
+  late AnimationController _animationController;
+  late Animation<Offset> _slideTransition;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _borderRadius;
   @override
   void initState() {
     _animationController = AnimationController(
@@ -64,11 +64,11 @@ class _HomeAndDrawerContainerState extends State<HomeAndDrawerContainer>
                 style: Theme.of(context).textTheme.headline6,
               ),
               actions: <Widget>[
-                OutlineButton(
+                OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(false),
                   child: const Text('No'),
                 ),
-                OutlineButton(
+                OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   child: const Text('Yes'),
                 ),

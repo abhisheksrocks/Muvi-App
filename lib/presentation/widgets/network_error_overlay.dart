@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 class NetworkErrorOverlay extends StatelessWidget {
-  final Function functionToExecute;
+  final void Function()? functionToExecute;
   const NetworkErrorOverlay({
-    Key key,
+    Key? key,
     this.functionToExecute,
   }) : super(key: key);
   @override
@@ -29,16 +29,18 @@ class NetworkErrorOverlay extends StatelessWidget {
                   'NETWORK ERROR',
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .subtitle1!
                       .copyWith(color: Colors.white),
                 ),
               ],
             ),
           ),
           if (functionToExecute != null)
-            FlatButton(
+            TextButton(
               onPressed: functionToExecute,
-              color: Colors.grey.withOpacity(0.2),
+              style: TextButton.styleFrom(
+                primary: Colors.grey.withOpacity(0.2),
+              ),
               child: const Text('Reload'),
             ),
         ],

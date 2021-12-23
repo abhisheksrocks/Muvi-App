@@ -5,8 +5,8 @@ class SectionHeading extends StatelessWidget {
   final String text;
   // final bool alternate;
   const SectionHeading({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     // this.alternate = false,
   }) : super(key: key);
   @override

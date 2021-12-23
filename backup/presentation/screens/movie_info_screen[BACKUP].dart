@@ -32,9 +32,9 @@ import '../../../lib/presentation/widgets/view_all_button.dart';
 class MovieInfoScreen extends StatelessWidget {
   final int movieId;
   MovieInfoScreen({
-    Key key,
-    @required this.movieId,
-  })  : _currentMovieModel = MovieBucket().getInfo(movieId),
+    Key? key,
+    required this.movieId,
+  })   : _currentMovieModel = MovieBucket().getInfo(movieId),
         super(key: key);
 
   final MovieModel _currentMovieModel;
@@ -97,7 +97,7 @@ class MovieInfoScreen extends StatelessWidget {
                     ShaderMask(
                       shaderCallback: AppStyle().defaultPosterShader,
                       child: MyImageViewer(
-                        imagePath: _currentMovieModel.posterImagePath,
+                        imagePath: _currentMovieModel.posterImagePath!,
                         widgetWidth: MediaQuery.of(context).size.width,
                       ),
                     ),
@@ -140,9 +140,9 @@ class MovieInfoScreen extends StatelessWidget {
                               HorizontalDividerSmall(),
                               Expanded(
                                 child: GenreText(
-                                  genreIds: _currentMovieModel.genreIds,
+                                  genreIds: _currentMovieModel.genreIds!,
                                   textStyle:
-                                      Theme.of(context).textTheme.bodyText1,
+                                      Theme.of(context).textTheme.bodyText1!,
                                 ),
                               ),
                             ],
@@ -150,8 +150,8 @@ class MovieInfoScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 4, bottom: 4),
                             child: TitleText(
-                              title: _currentMovieModel.title,
-                              textStyle: Theme.of(context).textTheme.headline4,
+                              title: _currentMovieModel.title!,
+                              textStyle: Theme.of(context).textTheme.headline4!,
                             ),
                           ),
                           Row(
@@ -184,9 +184,9 @@ class MovieInfoScreen extends StatelessWidget {
                               ),
                               HorizontalDividerSmall(),
                               ReleaseDateText(
-                                releaseDate: _currentMovieModel.releaseDate,
+                                releaseDate: _currentMovieModel.releaseDate!,
                                 textStyle:
-                                    Theme.of(context).textTheme.bodyText1,
+                                    Theme.of(context).textTheme.bodyText1!,
                                 dateFormat: 'dd MMM yyyy',
                               ),
                             ],
@@ -210,15 +210,16 @@ class MovieInfoScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 9.0, bottom: 15, left: 18, right: 18),
                       child: SummaryReviewText(
-                        textData: _currentMovieModel.summary,
-                        textStyle: Theme.of(context).textTheme.bodyText1,
+                        textData: _currentMovieModel.summary!,
+                        textStyle: Theme.of(context).textTheme.bodyText1!,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18),
                       child: RatingWithText(
-                        avgRatingOutOfTen: _currentMovieModel.avgRatingOutOfTen,
-                        totalRatingCount: _currentMovieModel.totalRatingCount,
+                        avgRatingOutOfTen:
+                            _currentMovieModel.avgRatingOutOfTen!,
+                        totalRatingCount: _currentMovieModel.totalRatingCount!,
                       ),
                     ),
                     Padding(
