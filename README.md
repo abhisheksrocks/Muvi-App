@@ -1,6 +1,14 @@
 # MUVI app
 
-This repository holds the code base for Muvi app. It's an app in play store, that aims to provide collective information about your favourite movies, based on the TMDb database via API calls. *But isn't that every other similar app? How's this different?* I'll tell you how! The idea was to create an app based on simple idea, but to overkill in terms of **UI design, UX and features**. What *features* am I talking about? Well here is the list:-
+This repository holds the code base for Muvi app.
+
+![Shot1](https://play-lh.googleusercontent.com/x4mtF_E1Ong4_GVFy1-5zAUodXoMWQQ0o0SbcuG3CMqy9XVDqIoBF3Y_pMRnyzRHfso=w256)
+![Shot2](https://play-lh.googleusercontent.com/gG6ri7GhO4zYv5qnmwQud_Ko5udQ__Di_UyT8FNZbUE6N86V2PR-NU2pxNSM4Vfc_mM=w256)
+![Shot3](https://play-lh.googleusercontent.com/Vhvj8qZ0J3TprVaAl2jIjRRiHv_CqhLcR4__5sq93EFR6G5TrmzhYDZnPkpEAooDshA=w256)
+![Shot4](https://play-lh.googleusercontent.com/9nJfl3zZlM3Mw--7a0UY_H3OabK_UsOfffx2yfI0VMUAYUe6l5rrQG--iFQZTnB3iAOa=w256)
+![Shot5](https://play-lh.googleusercontent.com/8sucMLj1o5rfzDCUj4O7c4b5dhydy1VF_h_8e_QYWeyQzH0wNtYGmWp2X2PpG-aSGyl_=w256)
+
+It's an app in play store, that aims to provide collective information about your favourite movies, based on the TMDb database via API calls. *But isn't that every other similar app? How's this different?* I'll tell you how! The idea was to create an app based on simple idea, but to overkill in terms of **UI design, UX and features**. What *features* am I talking about? Well here is the list:-
 
 1.  Image Caching Mechanism - No image is ever downloaded twice, not even after restart, because every image is cached to phone storage.
 2.  *Intelligent* Image Viewer - The app always shows the best resolution file, that we have downloaded, unless the *required resolution* of the image is more. What *required resolution* thingy? The developer has implemented a system, where the image is searched based on the width of the image placeholder, so a FullHD screen will download the 1080p resolution image when full screen placeholder is loaded, whereas 480p screen would download 480p image in that case.
